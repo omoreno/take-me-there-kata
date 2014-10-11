@@ -1,0 +1,5 @@
+syntax: glob
+TakeMeThere.suo
+TakeMeThere/bin/Debug/TakeMeThere.vshost.exe
+TakeMeThere/bin/Debug/TakeMeThere.vshost.exe.manifest
+TakeMeThere/obj/x86/Debug/DesignTimeResolveAssemblyReferencesInput.cache
