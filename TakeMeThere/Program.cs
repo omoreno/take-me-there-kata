@@ -44,9 +44,12 @@ namespace TakeMeThere
             return bookingRequest.Id;
         }
 
-        public List<AvailableTaxi> GetTaxis(Customer customer, Location location, TaxiSearchFilter filter, CustomerNeeds customerNeeds)
+        public List<AvailableTaxi> GetTaxis(Customer customer, Location customerLocation, TaxiSearchFilter filter, CustomerNeeds customerNeeds)
         {
-            return availableTaxiRepository.GetAll().OrderBy(x => x.Price).Take(10).ToList();
+            var taxis = availableTaxiRepository.GetAll();
+            if (filter == TaxiSearchFilter.MostAffordable)
+                return taxis.OrderBy(x => x.Price).Take(10).ToList();
+            return taxis.OrderBy(x => x.DistanceToCustomer(customerLocation)).Take(10).ToList();
         }
     }
 }
