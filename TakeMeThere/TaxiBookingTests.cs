@@ -61,5 +61,17 @@ namespace TakeMeThere
 
             bookingRepository.Verify(x => x.Save(It.IsAny<BookingRequest>()));
         }
+
+        [Test]
+        public void ShouldSetTaxiUnavailableOnNewBooking()
+        {
+            availableTaxiRepository
+                .Setup(x => x.Exists(It.IsAny<string>()))
+                .Returns(true);
+
+            api.BookTaxi(taxi, customer, new Location(1, 1), new Location(1, 1), 150.3);
+
+            availableTaxiRepository.Verify(x => x.Delete(It.IsAny<string>()));
+        }
     }
 }
