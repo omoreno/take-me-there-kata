@@ -4,6 +4,7 @@ using NUnit.Framework;
 using TakeMeThere.Exceptions;
 using TakeMeThere.Models;
 using TakeMeThere.Repositories;
+using TakeMeThere.Services;
 
 namespace TakeMeThere
 {

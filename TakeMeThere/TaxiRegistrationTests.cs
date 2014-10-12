@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using TakeMeThere.Models;
 using TakeMeThere.Repositories;
+using TakeMeThere.Services;
 
 namespace TakeMeThere
 {
