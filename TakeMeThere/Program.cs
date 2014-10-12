@@ -29,5 +29,10 @@ namespace TakeMeThere
             var availableTaxi = new AvailableTaxi(taxi, currentLocation, taxiAvailabilityPreferences);
             availableTaxiRepository.Save(availableTaxi);
         }
+
+        public string BookTaxi(Taxi taxi, Customer customer, Location startLocation, Location endLocation, double price)
+        {
+            return new Guid().ToString();
+        }
     }
 }
