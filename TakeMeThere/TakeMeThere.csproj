@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\AvailableTaxi.cs" />
+    <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Taxi.cs" />
     <Compile Include="Models\TaxiAvailabilityPreferences.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IAvailableTaxiRepository.cs" />
+    <Compile Include="TaxiBookingTests.cs" />
     <Compile Include="TaxiRegistrationTests.cs" />
   </ItemGroup>
   <ItemGroup>
