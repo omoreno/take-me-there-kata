@@ -1,6 +1,7 @@
 ﻿using System;
 using Moq;
 using NUnit.Framework;
+using TakeMeThere.Exceptions;
 using TakeMeThere.Models;
 using TakeMeThere.Repositories;
 
@@ -37,13 +38,5 @@ namespace TakeMeThere
 
             Assert.Throws(typeof(AlreadyBookedTaxi), act.Invoke);
         }
-    }
-
-    public class NotFoundTaxi : Exception
-    {
-    }
-
-    public class AlreadyBookedTaxi : Exception
-    {
     }
 }
