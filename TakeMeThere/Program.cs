@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TakeMeThere.Exceptions;
 using TakeMeThere.Models;
 using TakeMeThere.Repositories;
 
