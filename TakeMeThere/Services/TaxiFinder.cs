@@ -27,14 +27,13 @@ namespace TakeMeThere.Services
 
         private bool MeetsCustomerNeeds(TaxiFeatures taxiFeatures, CustomerNeeds customerNeeds)
         {
-            if (customerNeeds == null)
-                return true;
-            return taxiFeatures.Size == customerNeeds.Size &&
-                   taxiFeatures.NumberOfSeats == customerNeeds.NumberOfSeats &&
-                   taxiFeatures.AirConditioned == customerNeeds.WithAirConditioned &&
-                   taxiFeatures.WheelchairAccesible == customerNeeds.WheelchairAccessible &&
-                   taxiFeatures.ExtraBaggageSpace == customerNeeds.WithExtraBagaggeSpace &&
-                   taxiFeatures.LuxuriousEquipment == customerNeeds.WithLuxuriousEquipment;
+            return (customerNeeds == null) ||
+                    (taxiFeatures.Size == customerNeeds.Size &&
+                       taxiFeatures.NumberOfSeats == customerNeeds.NumberOfSeats &&
+                       taxiFeatures.AirConditioned == customerNeeds.WithAirConditioned &&
+                       taxiFeatures.WheelchairAccesible == customerNeeds.WheelchairAccessible &&
+                       taxiFeatures.ExtraBaggageSpace == customerNeeds.WithExtraBagaggeSpace &&
+                       taxiFeatures.LuxuriousEquipment == customerNeeds.WithLuxuriousEquipment);
         }
     }
 }
