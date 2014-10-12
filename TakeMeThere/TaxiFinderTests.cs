@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Moq;
 using NUnit.Framework;
 using TakeMeThere.Models;
@@ -35,6 +36,24 @@ namespace TakeMeThere
             var retrievedTaxis = api.GetTaxis(customer, new Location(1, 1), TaxiSearchFilter.BestRated, new CustomerNeeds(TaxiSize.Small, 4, false, false, false, false));
             
             Assert.AreEqual(retrievedTaxis.Count, 10);
+        }
+
+        [Test]
+        public void ShouldFilterMostAffordableTaxis()
+        {
+            var preferences = new TaxiAvailabilityPreferences(TaxiTripLength.Short, 3, 10000);
+            var mostAffodableAvailableTaxi = new AvailableTaxi(taxi, new Location(1, 1), preferences);
+            var mostExpensiveTaxi = new Taxi(TaxiSize.Large, 8, true, true, true, true);
+            var mostExpensiveAvailableTaxi = new AvailableTaxi(mostExpensiveTaxi, new Location(1, 1), preferences);
+            var availableTaxis = new List<AvailableTaxi> { mostExpensiveAvailableTaxi, mostAffodableAvailableTaxi };
+            availableTaxiRepository
+                .Setup(x => x.GetAll())
+                .Returns(availableTaxis);
+
+            var retrievedTaxis = api.GetTaxis(customer, new Location(1, 1), TaxiSearchFilter.MostAffordable, new CustomerNeeds(TaxiSize.Small, 4, false, false, false, false));
+
+            Assert.AreEqual(retrievedTaxis.Count, 2);
+            Assert.Less(retrievedTaxis.First().Price, retrievedTaxis.Last().Price);
         }
 
         private List<AvailableTaxi> GetStubTaxis(int numberOfTaxis)
