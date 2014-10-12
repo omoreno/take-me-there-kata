@@ -6,5 +6,6 @@ namespace TakeMeThere.Repositories
     {
         void Save(AvailableTaxi availableTaxi);
         bool Exists(string taxiId);
+        void Delete(string taxiId);
     }
 }

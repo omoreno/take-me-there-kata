@@ -40,6 +40,7 @@ namespace TakeMeThere
 
             var bookingRequest = new BookingRequest(taxi.Id, customer.Id);
             bookingRepository.Save(bookingRequest);
+            availableTaxiRepository.Delete(taxi.Id);
             return bookingRequest.Id;
         }
     }
