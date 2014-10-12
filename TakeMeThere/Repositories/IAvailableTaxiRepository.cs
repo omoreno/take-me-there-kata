@@ -1,4 +1,5 @@
-﻿using TakeMeThere.Models;
+﻿using System.Collections.Generic;
+using TakeMeThere.Models;
 
 namespace TakeMeThere.Repositories
 {
@@ -7,5 +8,6 @@ namespace TakeMeThere.Repositories
         void Save(AvailableTaxi availableTaxi);
         bool Exists(string taxiId);
         void Delete(string taxiId);
+        List<AvailableTaxi> GetAll();
     }
 }
