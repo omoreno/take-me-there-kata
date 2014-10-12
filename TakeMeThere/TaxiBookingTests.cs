@@ -62,23 +62,4 @@ namespace TakeMeThere
             bookingRepository.Verify(x => x.Save(It.IsAny<BookingRequest>()));
         }
     }
-
-    public class BookingRequest
-    {
-        public string Id { get; private set;  }
-        private readonly string taxiId;
-        private readonly string customerId;
-
-        public BookingRequest(string taxiId, string customerId)
-        {
-            Id = new Guid().ToString();
-            this.taxiId = taxiId;
-            this.customerId = customerId;
-        }
-    }
-
-    public interface IBookingRepository
-    {
-        void Save(BookingRequest bookingRequest);
-    }
 }
