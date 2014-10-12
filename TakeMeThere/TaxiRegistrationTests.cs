@@ -12,7 +12,7 @@ namespace TakeMeThere
         public void ShouldRegisterNewAvailableTaxi()
         {
             var availableTaxiRepository = new Mock<IAvailableTaxiRepository>();
-            var api = new Api(availableTaxiRepository.Object);
+            var api = new Api(availableTaxiRepository.Object, null);
             var taxi = new Taxi(size: TaxiSize.Small, numberOfSeats: 4, airConditioned: true,
                                 wheelchairAccesible: false, extraBaggageSpace: false,
                                 luxuriousEquipment: false);
