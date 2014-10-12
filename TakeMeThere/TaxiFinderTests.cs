@@ -42,7 +42,7 @@ namespace TakeMeThere
 
             var retrievedTaxis = api.GetTaxis(customer, new Location(1, 1), TaxiSearchFilter.BestRated, new CustomerNeeds(TaxiSize.Small, 4, false, false, false, false));
             
-            Assert.AreEqual(retrievedTaxis.Count, 10);
+            Assert.AreEqual(10, retrievedTaxis.Count);
         }
 
         [Test]
@@ -56,7 +56,7 @@ namespace TakeMeThere
 
             var retrievedTaxis = api.GetTaxis(customer, new Location(1, 1), TaxiSearchFilter.MostAffordable, new CustomerNeeds(TaxiSize.Small, 4, false, false, false, false));
 
-            Assert.AreEqual(retrievedTaxis.Count, 2);
+            Assert.AreEqual(2, retrievedTaxis.Count);
             Assert.Less(retrievedTaxis.First().Features.Price, retrievedTaxis.Last().Features.Price);
         }
 
@@ -72,7 +72,7 @@ namespace TakeMeThere
 
             var retrievedTaxis = api.GetTaxis(customer, customerLocation, TaxiSearchFilter.Nearest, new CustomerNeeds(TaxiSize.Small, 4, false, false, false, false));
 
-            Assert.AreEqual(retrievedTaxis.Count, 2);
+            Assert.AreEqual(2, retrievedTaxis.Count);
             Assert.Less(retrievedTaxis.First().DistanceToCustomer(customerLocation), retrievedTaxis.Last().DistanceToCustomer(customerLocation));
         }
 
