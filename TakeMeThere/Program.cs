@@ -33,14 +33,9 @@ namespace TakeMeThere
 
         public string BookTaxi(Taxi taxi, Customer customer, Location startLocation, Location endLocation, double price)
         {
-            try
-            {
-                availableTaxiRepository.FindById(taxi.Id);
-            }
-            catch (NotFoundTaxi)
-            {
+            if (!availableTaxiRepository.Exists(taxi.Id))
                 throw new AlreadyBookedTaxi();
-            }
+            
             return new Guid().ToString();
         }
     }
