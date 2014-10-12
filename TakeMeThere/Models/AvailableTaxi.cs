@@ -11,6 +11,8 @@ namespace TakeMeThere.Models
         private readonly int workingLocationRadio;
         public int Price { get; private set; }
 
+        public TaxiSize Size { get { return taxi.Size; } }
+
         public AvailableTaxi(Taxi taxi, Location currentLocation, TaxiAvailabilityPreferences taxiAvailabilityPreferences)
         {
             this.taxi = taxi;
