@@ -88,6 +88,18 @@ namespace TakeMeThere
             Assert.IsEmpty(retrievedTaxis);
         }
 
+        [Test]
+        public void ShouldFilterTaxisThatMatchCustomerNumberOfSeatsNeeds()
+        {
+            var notMatchingTaxi = new AvailableTaxi(taxi, new Location(2, 2), preferences);
+            availableTaxis.Add(notMatchingTaxi);
+            var customerNeeds = new CustomerNeeds(TaxiSize.Small, 7, false, false, false, false);
+
+            var retrievedTaxis = api.GetTaxis(customer, new Location(1, 1), TaxiSearchFilter.Nearest, customerNeeds);
+
+            Assert.IsEmpty(retrievedTaxis);
+        }
+
         private List<AvailableTaxi> GetStubTaxis(int numberOfTaxis)
         {
             var taxis = new List<AvailableTaxi>();
