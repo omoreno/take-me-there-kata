@@ -46,10 +46,18 @@ namespace TakeMeThere
 
         public List<AvailableTaxi> GetTaxis(Customer customer, Location customerLocation, TaxiSearchFilter filter, CustomerNeeds customerNeeds)
         {
-            var taxis = availableTaxiRepository.GetAll();
+            var taxis = availableTaxiRepository.GetAll()
+                        .Where(x => MeetsCustomerNeeds(x, customerNeeds));
+            
             if (filter == TaxiSearchFilter.MostAffordable)
                 return taxis.OrderBy(x => x.Price).Take(10).ToList();
+            
             return taxis.OrderBy(x => x.DistanceToCustomer(customerLocation)).Take(10).ToList();
+        }
+
+        private bool MeetsCustomerNeeds(AvailableTaxi availableTaxi, CustomerNeeds customerNeeds)
+        {
+            return availableTaxi.Size == customerNeeds.Size;
         }
     }
 }
