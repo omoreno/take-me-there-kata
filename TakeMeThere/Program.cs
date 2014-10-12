@@ -27,35 +27,35 @@ namespace TakeMeThere
             this.bookingRepository = bookingRepository;
         }
 
-        public void RegisterTaxi(Taxi taxi, Location currentLocation, TaxiAvailabilityPreferences taxiAvailabilityPreferences)
+        public void RegisterTaxi(TaxiFeatures taxiFeatures, Location currentLocation, TaxiAvailabilityPreferences taxiAvailabilityPreferences)
         {
-            var availableTaxi = new AvailableTaxi(taxi, currentLocation, taxiAvailabilityPreferences);
+            var availableTaxi = new AvailableTaxi(taxiFeatures, currentLocation, taxiAvailabilityPreferences);
             availableTaxiRepository.Save(availableTaxi);
         }
 
-        public string BookTaxi(Taxi taxi, Customer customer, Location startLocation, Location endLocation, double price)
+        public string BookTaxi(AvailableTaxi availableTaxi, Customer customer, Location startLocation, Location endLocation, double price)
         {
-            if (!availableTaxiRepository.Exists(taxi.Id))
+            if (!availableTaxiRepository.Exists(availableTaxi.Id))
                 throw new AlreadyBookedTaxi();
 
-            var bookingRequest = new BookingRequest(taxi.Id, customer.Id);
+            var bookingRequest = new BookingRequest(availableTaxi.Id, customer.Id);
             bookingRepository.Save(bookingRequest);
-            availableTaxiRepository.Delete(taxi.Id);
+            availableTaxiRepository.Delete(availableTaxi.Id);
             return bookingRequest.Id;
         }
 
         public List<AvailableTaxi> GetTaxis(Customer customer, Location customerLocation, TaxiSearchFilter filter, CustomerNeeds customerNeeds)
         {
             var taxis = availableTaxiRepository.GetAll()
-                        .Where(x => MeetsCustomerNeeds(x, customerNeeds));
+                        .Where(x => MeetsCustomerNeeds(x.Features, customerNeeds));
             
             if (filter == TaxiSearchFilter.MostAffordable)
-                return taxis.OrderBy(x => x.Price).Take(10).ToList();
+                return taxis.OrderBy(x => x.Features.Price).Take(10).ToList();
             
             return taxis.OrderBy(x => x.DistanceToCustomer(customerLocation)).Take(10).ToList();
         }
 
-        private bool MeetsCustomerNeeds(AvailableTaxi taxi, CustomerNeeds customerNeeds)
+        private bool MeetsCustomerNeeds(TaxiFeatures taxi, CustomerNeeds customerNeeds)
         {
             return taxi.Size == customerNeeds.Size &&
                     taxi.NumberOfSeats == customerNeeds.NumberOfSeats;

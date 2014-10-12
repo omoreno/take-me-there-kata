@@ -2,9 +2,8 @@
 
 namespace TakeMeThere.Models
 {
-    public class Taxi
+    public class TaxiFeatures
     {
-        public string Id { get; private set; }
         public TaxiSize Size { get; private set; }
         public int NumberOfSeats { get; private set; }
         public bool AirConditioned { get; private set; }
@@ -13,9 +12,8 @@ namespace TakeMeThere.Models
         public bool LuxuriousEquipment { get; private set; }
         public int Price { get; private set; }
 
-        public Taxi(TaxiSize size, int numberOfSeats, bool airConditioned, bool wheelchairAccesible, bool extraBaggageSpace, bool luxuriousEquipment)
+        public TaxiFeatures(TaxiSize size, int numberOfSeats, bool airConditioned, bool wheelchairAccesible, bool extraBaggageSpace, bool luxuriousEquipment)
         {
-            Id = new Guid().ToString();
             Size = size;
             NumberOfSeats = numberOfSeats;
             AirConditioned = airConditioned;

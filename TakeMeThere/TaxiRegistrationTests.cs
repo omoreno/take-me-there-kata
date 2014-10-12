@@ -13,7 +13,7 @@ namespace TakeMeThere
         {
             var availableTaxiRepository = new Mock<IAvailableTaxiRepository>();
             var api = new Api(availableTaxiRepository.Object, null);
-            var taxi = new Taxi(size: TaxiSize.Small, numberOfSeats: 4, airConditioned: true,
+            var taxi = new TaxiFeatures(size: TaxiSize.Small, numberOfSeats: 4, airConditioned: true,
                                 wheelchairAccesible: false, extraBaggageSpace: false,
                                 luxuriousEquipment: false);
             var taxiAvailabilityPreferences = new TaxiAvailabilityPreferences(TaxiTripLength.Short, 3, 10000);
