@@ -6,7 +6,7 @@ using TakeMeThere.Repositories;
 namespace TakeMeThere
 {
     [TestFixture]
-    public class Tests
+    public class TaxiRegistrationTests
     {
         [Test]
         public void ShouldRegisterNewAvailableTaxi()

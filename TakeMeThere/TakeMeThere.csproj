@@ -58,7 +58,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IAvailableTaxiRepository.cs" />
-    <Compile Include="Tests.cs" />
+    <Compile Include="TaxiRegistrationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
