@@ -17,6 +17,9 @@ namespace TakeMeThere
             var api = new Api(availableTaxiRepository.Object);
             var taxi = new Taxi(TaxiSize.Small, 4, true, false, false, false);
             var customer = new Customer();
+            availableTaxiRepository
+                    .Setup(x => x.Exists(It.IsAny<string>()))
+                    .Returns(true);
 
             var bookingReference = api.BookTaxi(taxi, customer, new Location(1, 1), new Location(1, 1), 150.3);
 
@@ -31,8 +34,8 @@ namespace TakeMeThere
             var taxi = new Taxi(TaxiSize.Small, 4, true, false, false, false);
             var customer = new Customer();
             availableTaxiRepository
-                    .Setup(x => x.FindById(It.IsAny<string>()))
-                    .Throws(new NotFoundTaxi());
+                    .Setup(x => x.Exists(It.IsAny<string>()))
+                    .Returns(false);
 
             Action act = () => api.BookTaxi(taxi, customer, new Location(1, 1), new Location(1, 1), 150.3);
 

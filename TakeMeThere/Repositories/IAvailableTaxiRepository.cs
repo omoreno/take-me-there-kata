@@ -5,6 +5,6 @@ namespace TakeMeThere.Repositories
     public interface IAvailableTaxiRepository
     {
         void Save(AvailableTaxi availableTaxi);
-        Taxi FindById(string taxiId);
+        bool Exists(string taxiId);
     }
 }

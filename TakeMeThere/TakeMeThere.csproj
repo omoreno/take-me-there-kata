@@ -50,7 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\AlreadyBookedTaxi.cs" />
-    <Compile Include="Exceptions\NotFoundTaxi.cs" />
     <Compile Include="Models\AvailableTaxi.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Location.cs" />
