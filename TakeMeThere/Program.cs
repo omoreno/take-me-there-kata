@@ -43,5 +43,10 @@ namespace TakeMeThere
             availableTaxiRepository.Delete(taxi.Id);
             return bookingRequest.Id;
         }
+
+        public List<AvailableTaxi> GetTaxis(Customer customer, Location location, TaxiSearchFilter bestRated, CustomerNeeds customerNeeds)
+        {
+            return availableTaxiRepository.GetAll().Take(10).ToList();
+        }
     }
 }
