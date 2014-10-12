@@ -98,44 +98,23 @@ namespace TakeMeThere
         [Test]
         public void ShouldLimitResultSizeToTenTaxis()
         {
-            var preferences = new TaxiAvailabilityPreferences(TaxiTripLength.Short, 3, 10000);
-            var taxis = new List<AvailableTaxi>();
-            for (var i = 0; i < 11; i++)
-                taxis.Add(new AvailableTaxi(taxi, new Location(1, 1), preferences));
             availableTaxiRepository
                 .Setup(x => x.GetAll())
-                .Returns(taxis);
+                .Returns(GetStubTaxis(11));
 
             var retrievedTaxis = api.GetTaxis(customer, new Location(1, 1), TaxiSearchFilter.BestRated, new CustomerNeeds(TaxiSize.Small, 4, false, false, false, false));
             
             Assert.AreEqual(retrievedTaxis.Count, 10);
         }
-    }
 
-    public enum TaxiSearchFilter
-    {
-        Nearest,
-        MostAffordable,
-        BestRated
-    }
-
-    public class CustomerNeeds
-    {
-        public readonly TaxiSize Size;
-        public readonly int NumberOfSeats;
-        public readonly bool WithAirConditioned;
-        public readonly bool WheelchairAccessible;
-        public readonly bool WithExtraBagaggeSpace;
-        public readonly bool WithLuxuriousEquipment;
-
-        public CustomerNeeds(TaxiSize size, int numberOfSeats, bool withAirConditioned, bool wheelchairAccessible, bool withExtraBagaggeSpace, bool withLuxuriousEquipment)
+        private List<AvailableTaxi> GetStubTaxis(int numberOfTaxis)
         {
-            Size = size;
-            NumberOfSeats = numberOfSeats;
-            WithAirConditioned = withAirConditioned;
-            WheelchairAccessible = wheelchairAccessible;
-            WithExtraBagaggeSpace = withExtraBagaggeSpace;
-            WithLuxuriousEquipment = withLuxuriousEquipment;
+            var preferences = new TaxiAvailabilityPreferences(TaxiTripLength.Short, 3, 10000);
+            var taxis = new List<AvailableTaxi>();
+            for (var i = 0; i < numberOfTaxis; i++)
+                taxis.Add(new AvailableTaxi(taxi, new Location(1, 1), preferences));
+            return taxis;
         }
+
     }
 }
