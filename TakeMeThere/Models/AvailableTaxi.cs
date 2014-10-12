@@ -1,4 +1,6 @@
-﻿namespace TakeMeThere.Models
+﻿using System;
+
+namespace TakeMeThere.Models
 {
     public class AvailableTaxi
     {
@@ -17,6 +19,12 @@
             minimunCustomerRating = taxiAvailabilityPreferences.MinimunCustomerRating;
             workingLocationRadio = taxiAvailabilityPreferences.WorkingLocationRadio;
             Price = taxi.Price;
+        }
+
+        public double DistanceToCustomer(Location customerLocation)
+        {
+            return Math.Sqrt(Math.Pow((currentLocation.Latitude - customerLocation.Latitude), 2) +
+                  Math.Pow((currentLocation.Longitude - customerLocation.Longitude), 2));
         }
     }
 }

@@ -56,6 +56,25 @@ namespace TakeMeThere
             Assert.Less(retrievedTaxis.First().Price, retrievedTaxis.Last().Price);
         }
 
+        [Test]
+        public void ShouldFilterNearestTaxis()
+        {
+            var preferences = new TaxiAvailabilityPreferences(TaxiTripLength.Short, 3, 10000);
+            var farthestAvailableTaxi = new AvailableTaxi(taxi, new Location(2, 2), preferences);
+            var customerLocation = new Location(1, 1);
+            var closerTaxi = new Taxi(TaxiSize.Large, 8, true, true, true, true);
+            var closerAvailableTaxi = new AvailableTaxi(closerTaxi, new Location(1, 1), preferences);
+            var availableTaxis = new List<AvailableTaxi> { farthestAvailableTaxi, closerAvailableTaxi };
+            availableTaxiRepository
+                .Setup(x => x.GetAll())
+                .Returns(availableTaxis);
+
+            var retrievedTaxis = api.GetTaxis(customer, customerLocation, TaxiSearchFilter.Nearest, new CustomerNeeds(TaxiSize.Small, 4, false, false, false, false));
+
+            Assert.AreEqual(retrievedTaxis.Count, 2);
+            Assert.Less(retrievedTaxis.First().DistanceToCustomer(customerLocation), retrievedTaxis.Last().DistanceToCustomer(customerLocation));
+        }
+
         private List<AvailableTaxi> GetStubTaxis(int numberOfTaxis)
         {
             var preferences = new TaxiAvailabilityPreferences(TaxiTripLength.Short, 3, 10000);

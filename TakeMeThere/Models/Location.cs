@@ -2,13 +2,13 @@
 {
     public class Location
     {
-        private double longitude;
-        private double latitude;
+        public double Longitude { get; private set; }
+        public double Latitude { get; private set; }
 
         public Location(double latitude, double longitude)
         {
-            this.latitude = latitude;
-            this.longitude = longitude;
+            Latitude = latitude;
+            Longitude = longitude;
         }
     }
 }
