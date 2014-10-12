@@ -4,24 +4,21 @@ namespace TakeMeThere.Models
 {
     public class AvailableTaxi
     {
-        private readonly Taxi taxi;
         private readonly Location currentLocation;
         private readonly TaxiTripLength tripLength;
         private readonly int minimunCustomerRating;
         private readonly int workingLocationRadio;
-        public int Price { get; private set; }
+        public string Id { get; private set; }
+        public TaxiFeatures Features { get; private set; }
 
-        public TaxiSize Size { get { return taxi.Size; } }
-        public int NumberOfSeats { get { return taxi.NumberOfSeats; } }
-
-        public AvailableTaxi(Taxi taxi, Location currentLocation, TaxiAvailabilityPreferences taxiAvailabilityPreferences)
+        public AvailableTaxi(TaxiFeatures taxiFeatures, Location currentLocation, TaxiAvailabilityPreferences taxiAvailabilityPreferences)
         {
-            this.taxi = taxi;
+            Id = new Guid().ToString();
+            Features = taxiFeatures;
             this.currentLocation = currentLocation;
             tripLength = taxiAvailabilityPreferences.TripLength;
             minimunCustomerRating = taxiAvailabilityPreferences.MinimunCustomerRating;
             workingLocationRadio = taxiAvailabilityPreferences.WorkingLocationRadio;
-            Price = taxi.Price;
         }
 
         public double DistanceToCustomer(Location customerLocation)

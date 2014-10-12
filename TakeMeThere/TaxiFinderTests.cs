@@ -13,7 +13,7 @@ namespace TakeMeThere
         private Api api;
         private Mock<IBookingRepository> bookingRepository;
         private Mock<IAvailableTaxiRepository> availableTaxiRepository;
-        private Taxi taxi;
+        private TaxiFeatures taxiFeatures;
         private Customer customer;
         private TaxiAvailabilityPreferences preferences;
         private List<AvailableTaxi> availableTaxis;
@@ -24,7 +24,7 @@ namespace TakeMeThere
             availableTaxiRepository = new Mock<IAvailableTaxiRepository>();
             bookingRepository = new Mock<IBookingRepository>();
             api = new Api(availableTaxiRepository.Object, bookingRepository.Object);
-            taxi = new Taxi(TaxiSize.Small, 4, false, false, false, false);
+            taxiFeatures = new TaxiFeatures(TaxiSize.Small, 4, false, false, false, false);
             customer = new Customer();
             preferences = new TaxiAvailabilityPreferences(TaxiTripLength.Short, 3, 10000);
             availableTaxis = new List<AvailableTaxi>();
@@ -48,8 +48,8 @@ namespace TakeMeThere
         [Test]
         public void ShouldFilterMostAffordableTaxis()
         {
-            var mostAffodableAvailableTaxi = new AvailableTaxi(taxi, new Location(1, 1), preferences);
-            var mostExpensiveTaxi = new Taxi(TaxiSize.Large, 8, true, true, true, true);
+            var mostAffodableAvailableTaxi = new AvailableTaxi(taxiFeatures, new Location(1, 1), preferences);
+            var mostExpensiveTaxi = new TaxiFeatures(TaxiSize.Small, 4, true, true, true, true);
             var mostExpensiveAvailableTaxi = new AvailableTaxi(mostExpensiveTaxi, new Location(1, 1), preferences);
             availableTaxis.Add(mostExpensiveAvailableTaxi);
             availableTaxis.Add(mostAffodableAvailableTaxi);
@@ -57,15 +57,15 @@ namespace TakeMeThere
             var retrievedTaxis = api.GetTaxis(customer, new Location(1, 1), TaxiSearchFilter.MostAffordable, new CustomerNeeds(TaxiSize.Small, 4, false, false, false, false));
 
             Assert.AreEqual(retrievedTaxis.Count, 2);
-            Assert.Less(retrievedTaxis.First().Price, retrievedTaxis.Last().Price);
+            Assert.Less(retrievedTaxis.First().Features.Price, retrievedTaxis.Last().Features.Price);
         }
 
         [Test]
         public void ShouldFilterNearestTaxis()
         {
-            var farthestAvailableTaxi = new AvailableTaxi(taxi, new Location(2, 2), preferences);
+            var farthestAvailableTaxi = new AvailableTaxi(taxiFeatures, new Location(2, 2), preferences);
             var customerLocation = new Location(1, 1);
-            var closerTaxi = new Taxi(TaxiSize.Large, 8, true, true, true, true);
+            var closerTaxi = new TaxiFeatures(TaxiSize.Small, 4, true, true, true, true);
             var closerAvailableTaxi = new AvailableTaxi(closerTaxi, new Location(1, 1), preferences);
             availableTaxis.Add(farthestAvailableTaxi);
             availableTaxis.Add(closerAvailableTaxi);
@@ -79,7 +79,7 @@ namespace TakeMeThere
         [Test]
         public void ShouldFilterTaxisThatMatchCustomerTaxiSizeNeeds()
         {
-            var notMatchingTaxi = new AvailableTaxi(taxi, new Location(2, 2), preferences);
+            var notMatchingTaxi = new AvailableTaxi(taxiFeatures, new Location(2, 2), preferences);
             availableTaxis.Add(notMatchingTaxi);
             var customerNeeds = new CustomerNeeds(TaxiSize.Large, 4, false, false, false, false);
 
@@ -91,7 +91,7 @@ namespace TakeMeThere
         [Test]
         public void ShouldFilterTaxisThatMatchCustomerNumberOfSeatsNeeds()
         {
-            var notMatchingTaxi = new AvailableTaxi(taxi, new Location(2, 2), preferences);
+            var notMatchingTaxi = new AvailableTaxi(taxiFeatures, new Location(2, 2), preferences);
             availableTaxis.Add(notMatchingTaxi);
             var customerNeeds = new CustomerNeeds(TaxiSize.Small, 7, false, false, false, false);
 
@@ -104,7 +104,7 @@ namespace TakeMeThere
         {
             var taxis = new List<AvailableTaxi>();
             for (var i = 0; i < numberOfTaxis; i++)
-                taxis.Add(new AvailableTaxi(taxi, new Location(1, 1), preferences));
+                taxis.Add(new AvailableTaxi(taxiFeatures, new Location(1, 1), preferences));
             return taxis;
         }
 
