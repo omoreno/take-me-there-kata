@@ -15,6 +15,8 @@ namespace TakeMeThere
         private Mock<IAvailableTaxiRepository> availableTaxiRepository;
         private Taxi taxi;
         private Customer customer;
+        private TaxiAvailabilityPreferences preferences;
+        private List<AvailableTaxi> availableTaxis;
 
         [SetUp]
         public void SetUp()
@@ -24,6 +26,11 @@ namespace TakeMeThere
             api = new Api(availableTaxiRepository.Object, bookingRepository.Object);
             taxi = new Taxi(TaxiSize.Small, 4, false, false, false, false);
             customer = new Customer();
+            preferences = new TaxiAvailabilityPreferences(TaxiTripLength.Short, 3, 10000);
+            availableTaxis = new List<AvailableTaxi>();
+            availableTaxiRepository
+                .Setup(x => x.GetAll())
+                .Returns(availableTaxis);
         }
 
         [Test]
@@ -41,14 +48,11 @@ namespace TakeMeThere
         [Test]
         public void ShouldFilterMostAffordableTaxis()
         {
-            var preferences = new TaxiAvailabilityPreferences(TaxiTripLength.Short, 3, 10000);
             var mostAffodableAvailableTaxi = new AvailableTaxi(taxi, new Location(1, 1), preferences);
             var mostExpensiveTaxi = new Taxi(TaxiSize.Large, 8, true, true, true, true);
             var mostExpensiveAvailableTaxi = new AvailableTaxi(mostExpensiveTaxi, new Location(1, 1), preferences);
-            var availableTaxis = new List<AvailableTaxi> { mostExpensiveAvailableTaxi, mostAffodableAvailableTaxi };
-            availableTaxiRepository
-                .Setup(x => x.GetAll())
-                .Returns(availableTaxis);
+            availableTaxis.Add(mostExpensiveAvailableTaxi);
+            availableTaxis.Add(mostAffodableAvailableTaxi);
 
             var retrievedTaxis = api.GetTaxis(customer, new Location(1, 1), TaxiSearchFilter.MostAffordable, new CustomerNeeds(TaxiSize.Small, 4, false, false, false, false));
 
@@ -59,15 +63,12 @@ namespace TakeMeThere
         [Test]
         public void ShouldFilterNearestTaxis()
         {
-            var preferences = new TaxiAvailabilityPreferences(TaxiTripLength.Short, 3, 10000);
             var farthestAvailableTaxi = new AvailableTaxi(taxi, new Location(2, 2), preferences);
             var customerLocation = new Location(1, 1);
             var closerTaxi = new Taxi(TaxiSize.Large, 8, true, true, true, true);
             var closerAvailableTaxi = new AvailableTaxi(closerTaxi, new Location(1, 1), preferences);
-            var availableTaxis = new List<AvailableTaxi> { farthestAvailableTaxi, closerAvailableTaxi };
-            availableTaxiRepository
-                .Setup(x => x.GetAll())
-                .Returns(availableTaxis);
+            availableTaxis.Add(farthestAvailableTaxi);
+            availableTaxis.Add(closerAvailableTaxi);
 
             var retrievedTaxis = api.GetTaxis(customer, customerLocation, TaxiSearchFilter.Nearest, new CustomerNeeds(TaxiSize.Small, 4, false, false, false, false));
 
@@ -77,7 +78,6 @@ namespace TakeMeThere
 
         private List<AvailableTaxi> GetStubTaxis(int numberOfTaxis)
         {
-            var preferences = new TaxiAvailabilityPreferences(TaxiTripLength.Short, 3, 10000);
             var taxis = new List<AvailableTaxi>();
             for (var i = 0; i < numberOfTaxis; i++)
                 taxis.Add(new AvailableTaxi(taxi, new Location(1, 1), preferences));
