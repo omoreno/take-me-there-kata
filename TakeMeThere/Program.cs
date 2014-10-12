@@ -19,10 +19,12 @@ namespace TakeMeThere
     public class Api
     {
         private readonly IAvailableTaxiRepository availableTaxiRepository;
+        private readonly IBookingRepository bookingRepository;
 
-        public Api(IAvailableTaxiRepository availableTaxiRepository)
+        public Api(IAvailableTaxiRepository availableTaxiRepository, IBookingRepository bookingRepository)
         {
             this.availableTaxiRepository = availableTaxiRepository;
+            this.bookingRepository = bookingRepository;
         }
 
         public void RegisterTaxi(Taxi taxi, Location currentLocation, TaxiAvailabilityPreferences taxiAvailabilityPreferences)
@@ -35,8 +37,10 @@ namespace TakeMeThere
         {
             if (!availableTaxiRepository.Exists(taxi.Id))
                 throw new AlreadyBookedTaxi();
-            
-            return new Guid().ToString();
+
+            var bookingRequest = new BookingRequest(taxi.Id, customer.Id);
+            bookingRepository.Save(bookingRequest);
+            return bookingRequest.Id;
         }
     }
 }
