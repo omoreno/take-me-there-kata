@@ -49,12 +49,12 @@ namespace TakeMeThere
         public void ShouldFilterMostAffordableTaxis()
         {
             var mostAffodableAvailableTaxi = new AvailableTaxi(taxiFeatures, new Location(1, 1), preferences);
-            var mostExpensiveTaxi = new TaxiFeatures(TaxiSize.Small, 4, true, true, true, true);
+            var mostExpensiveTaxi = new TaxiFeatures(TaxiSize.Large, 7, true, true, true, true);
             var mostExpensiveAvailableTaxi = new AvailableTaxi(mostExpensiveTaxi, new Location(1, 1), preferences);
             availableTaxis.Add(mostExpensiveAvailableTaxi);
             availableTaxis.Add(mostAffodableAvailableTaxi);
 
-            var retrievedTaxis = api.GetTaxis(customer, new Location(1, 1), TaxiSearchFilter.MostAffordable, new CustomerNeeds(TaxiSize.Small, 4, false, false, false, false));
+            var retrievedTaxis = api.GetTaxis(customer, new Location(1, 1), TaxiSearchFilter.MostAffordable, null);
 
             Assert.AreEqual(2, retrievedTaxis.Count);
             Assert.Less(retrievedTaxis.First().Features.Price, retrievedTaxis.Last().Features.Price);
@@ -65,7 +65,7 @@ namespace TakeMeThere
         {
             var farthestAvailableTaxi = new AvailableTaxi(taxiFeatures, new Location(2, 2), preferences);
             var customerLocation = new Location(1, 1);
-            var closerTaxi = new TaxiFeatures(TaxiSize.Small, 4, true, true, true, true);
+            var closerTaxi = new TaxiFeatures(TaxiSize.Small, 4, false, false, false, false);
             var closerAvailableTaxi = new AvailableTaxi(closerTaxi, new Location(1, 1), preferences);
             availableTaxis.Add(farthestAvailableTaxi);
             availableTaxis.Add(closerAvailableTaxi);
@@ -94,6 +94,54 @@ namespace TakeMeThere
             var notMatchingTaxi = new AvailableTaxi(taxiFeatures, new Location(2, 2), preferences);
             availableTaxis.Add(notMatchingTaxi);
             var customerNeeds = new CustomerNeeds(TaxiSize.Small, 7, false, false, false, false);
+
+            var retrievedTaxis = api.GetTaxis(customer, new Location(1, 1), TaxiSearchFilter.Nearest, customerNeeds);
+
+            Assert.IsEmpty(retrievedTaxis);
+        }
+
+        [Test]
+        public void ShouldFilterTaxisThatMatchCustomerAirConditionedNeeds()
+        {
+            var notMatchingTaxi = new AvailableTaxi(taxiFeatures, new Location(2, 2), preferences);
+            availableTaxis.Add(notMatchingTaxi);
+            var customerNeeds = new CustomerNeeds(TaxiSize.Small, 4, true, false, false, false);
+
+            var retrievedTaxis = api.GetTaxis(customer, new Location(1, 1), TaxiSearchFilter.Nearest, customerNeeds);
+
+            Assert.IsEmpty(retrievedTaxis);
+        }
+
+        [Test]
+        public void ShouldFilterTaxisThatMatchCustomerWheelchairAccesibilityNeeds()
+        {
+            var notMatchingTaxi = new AvailableTaxi(taxiFeatures, new Location(2, 2), preferences);
+            availableTaxis.Add(notMatchingTaxi);
+            var customerNeeds = new CustomerNeeds(TaxiSize.Small, 4, false, true, false, false);
+
+            var retrievedTaxis = api.GetTaxis(customer, new Location(1, 1), TaxiSearchFilter.Nearest, customerNeeds);
+
+            Assert.IsEmpty(retrievedTaxis);
+        }
+
+        [Test]
+        public void ShouldFilterTaxisThatMatchCustomerExtraBaggageSpaceNeeds()
+        {
+            var notMatchingTaxi = new AvailableTaxi(taxiFeatures, new Location(2, 2), preferences);
+            availableTaxis.Add(notMatchingTaxi);
+            var customerNeeds = new CustomerNeeds(TaxiSize.Small, 4, false, false, true, false);
+
+            var retrievedTaxis = api.GetTaxis(customer, new Location(1, 1), TaxiSearchFilter.Nearest, customerNeeds);
+
+            Assert.IsEmpty(retrievedTaxis);
+        }
+
+        [Test]
+        public void ShouldFilterTaxisThatMatchCustomerLuxuriousEquipmentNeeds()
+        {
+            var notMatchingTaxi = new AvailableTaxi(taxiFeatures, new Location(2, 2), preferences);
+            availableTaxis.Add(notMatchingTaxi);
+            var customerNeeds = new CustomerNeeds(TaxiSize.Small, 4, false, false, false, true);
 
             var retrievedTaxis = api.GetTaxis(customer, new Location(1, 1), TaxiSearchFilter.Nearest, customerNeeds);
 
