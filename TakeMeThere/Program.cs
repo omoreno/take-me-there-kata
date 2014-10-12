@@ -55,9 +55,10 @@ namespace TakeMeThere
             return taxis.OrderBy(x => x.DistanceToCustomer(customerLocation)).Take(10).ToList();
         }
 
-        private bool MeetsCustomerNeeds(AvailableTaxi availableTaxi, CustomerNeeds customerNeeds)
+        private bool MeetsCustomerNeeds(AvailableTaxi taxi, CustomerNeeds customerNeeds)
         {
-            return availableTaxi.Size == customerNeeds.Size;
+            return taxi.Size == customerNeeds.Size &&
+                    taxi.NumberOfSeats == customerNeeds.NumberOfSeats;
         }
     }
 }

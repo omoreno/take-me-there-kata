@@ -12,6 +12,7 @@ namespace TakeMeThere.Models
         public int Price { get; private set; }
 
         public TaxiSize Size { get { return taxi.Size; } }
+        public int NumberOfSeats { get { return taxi.NumberOfSeats; } }
 
         public AvailableTaxi(Taxi taxi, Location currentLocation, TaxiAvailabilityPreferences taxiAvailabilityPreferences)
         {
