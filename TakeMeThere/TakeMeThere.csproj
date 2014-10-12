@@ -65,6 +65,7 @@
     <Compile Include="Repositories\IAvailableTaxiRepository.cs" />
     <Compile Include="Repositories\IBookingRepository.cs" />
     <Compile Include="TaxiBookingTests.cs" />
+    <Compile Include="TaxiFinderTests.cs" />
     <Compile Include="TaxiRegistrationTests.cs" />
   </ItemGroup>
   <ItemGroup>
