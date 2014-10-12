@@ -10,8 +10,7 @@ namespace TakeMeThere
     [TestFixture]
     public class TaxiFinderTests
     {
-        private Api api;
-        private Mock<IBookingRepository> bookingRepository;
+        private CommandLineInterface api;
         private Mock<IAvailableTaxiRepository> availableTaxiRepository;
         private TaxiFeatures taxiFeatures;
         private Customer customer;
@@ -22,8 +21,8 @@ namespace TakeMeThere
         public void SetUp()
         {
             availableTaxiRepository = new Mock<IAvailableTaxiRepository>();
-            bookingRepository = new Mock<IBookingRepository>();
-            api = new Api(availableTaxiRepository.Object, bookingRepository.Object);
+            var taxiFinder = new TaxiFinder(availableTaxiRepository.Object);
+            api = new CommandLineInterface(null, null, taxiFinder);
             taxiFeatures = new TaxiFeatures(TaxiSize.Small, 4, false, false, false, false);
             customer = new Customer();
             preferences = new TaxiAvailabilityPreferences(TaxiTripLength.Short, 3, 10000);
