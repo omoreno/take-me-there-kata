@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cli.cs" />
     <Compile Include="Exceptions\AlreadyBookedTaxi.cs" />
     <Compile Include="Models\AvailableTaxi.cs" />
     <Compile Include="Models\BookingRequest.cs" />
