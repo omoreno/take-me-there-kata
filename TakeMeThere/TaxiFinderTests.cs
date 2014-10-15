@@ -182,16 +182,5 @@ namespace TakeMeThere
                 taxis.Add(new AvailableTaxi(taxiFeatures, new Location(1, 1), taxiPreferences, new TaxiOwnerPreferences(null)));
             return taxis;
         }
-
-    }
-
-    public class TaxiOwnerPreferences
-    {
-        public int? CustomerMinimunRating { get; private set; }
-
-        public TaxiOwnerPreferences(int? customerMinimunRating)
-        {
-            CustomerMinimunRating = customerMinimunRating;
-        }
     }
 }
