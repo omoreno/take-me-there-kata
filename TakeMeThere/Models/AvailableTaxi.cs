@@ -5,25 +5,23 @@ namespace TakeMeThere.Models
     public class AvailableTaxi
     {
         private readonly Location currentLocation;
-        public TaxiOwnerPreferences TaxiOwnerPreferences { get; private set; }
         private readonly TaxiTripLength tripLength;
-        private readonly int minimunCustomerRating;
-        private readonly int workingLocationRadio;
+        public int WorkingLocationRadio { get; private set; }
+        public int? MinimunCustomerRating { get; private set; }
         public string Id { get; private set; }
         public TaxiFeatures Features { get; private set; }
         public double? Rating { get; private set; }
 
-        public bool NeedsCustomerWithMinimunRating { get { return TaxiOwnerPreferences.CustomerMinimunRating.HasValue; } }
+        public bool NeedsCustomerWithMinimunRating { get { return MinimunCustomerRating.HasValue; } }
 
-        public AvailableTaxi(TaxiFeatures taxiFeatures, Location currentLocation, TaxiAvailabilityPreferences taxiAvailabilityPreferences, TaxiOwnerPreferences taxiOwnerPreferences)
+        public AvailableTaxi(TaxiFeatures taxiFeatures, Location currentLocation, TaxiAvailabilityPreferences taxiAvailabilityPreferences)
         {
             Id = new Guid().ToString();
             Features = taxiFeatures;
             this.currentLocation = currentLocation;
-            TaxiOwnerPreferences = taxiOwnerPreferences;
             tripLength = taxiAvailabilityPreferences.TripLength;
-            minimunCustomerRating = taxiAvailabilityPreferences.MinimunCustomerRating;
-            workingLocationRadio = taxiAvailabilityPreferences.WorkingLocationRadio;
+            MinimunCustomerRating = taxiAvailabilityPreferences.MinimunCustomerRating;
+            WorkingLocationRadio = taxiAvailabilityPreferences.WorkingLocationRadio;
         }
 
         public double DistanceToCustomer(Location customerLocation)

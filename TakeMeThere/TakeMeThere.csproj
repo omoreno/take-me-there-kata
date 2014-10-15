@@ -59,7 +59,6 @@
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\TaxiFeatures.cs" />
     <Compile Include="Models\TaxiAvailabilityPreferences.cs" />
-    <Compile Include="Models\TaxiOwnerPreferences.cs" />
     <Compile Include="Models\TaxiSearchCriteria.cs" />
     <Compile Include="Models\TaxiSearchFilter.cs" />
     <Compile Include="Models\TaxiSize.cs" />
