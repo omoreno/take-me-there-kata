@@ -28,7 +28,7 @@ namespace TakeMeThere
             var taxiFeatures = new TaxiFeatures(TaxiSize.Small, 4, false, false, false, false);
             var preferences = new TaxiAvailabilityPreferences(TaxiTripLength.Short, 3, 10000);
             availableTaxi = new AvailableTaxi(taxiFeatures, new Location(1, 1), preferences);
-            customer = new Customer();
+            customer = new Customer(new CustomerPreferences(null));
         }
 
         [Test]
