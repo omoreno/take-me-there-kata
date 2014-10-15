@@ -29,5 +29,10 @@ namespace TakeMeThere.Models
             return Math.Sqrt(Math.Pow((currentLocation.Latitude - customerLocation.Latitude), 2) +
                   Math.Pow((currentLocation.Longitude - customerLocation.Longitude), 2));
         }
+
+        public void Rate(int rate)
+        {
+            Rating = rate;
+        }
     }
 }

@@ -77,6 +77,22 @@ namespace TakeMeThere
         }
 
         [Test]
+        public void ShouldFilterBestRatedTaxis()
+        {
+            var worstRatedTaxi = new AvailableTaxi(taxiFeatures, new Location(1, 1), taxiPreferences);
+            worstRatedTaxi.Rate(0);
+            var bestRatedTaxi = new AvailableTaxi(taxiFeatures, new Location(1, 1), taxiPreferences);
+            bestRatedTaxi.Rate(5);
+            availableTaxis.Add(worstRatedTaxi);
+            availableTaxis.Add(bestRatedTaxi);
+
+            var retrievedTaxis = api.GetTaxis(customer, new Location(1, 1), TaxiSearchFilter.BestRated, new CustomerNeeds(TaxiSize.Small, 4, false, false, false, false));
+
+            Assert.AreEqual(2, retrievedTaxis.Count);
+            Assert.Greater(retrievedTaxis.First().Rating.Value, retrievedTaxis.Last().Rating.Value);
+        }
+
+        [Test]
         public void ShouldFilterTaxisThatMatchCustomerTaxiSizeNeeds()
         {
             var notMatchingTaxi = new AvailableTaxi(taxiFeatures, new Location(2, 2), taxiPreferences);

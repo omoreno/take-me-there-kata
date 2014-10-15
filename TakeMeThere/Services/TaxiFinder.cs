@@ -25,7 +25,10 @@ namespace TakeMeThere.Services
 
             if (searchCriteria.Filter == TaxiSearchFilter.MostAffordable)
                 return taxis.OrderBy(taxi => taxi.Features.Price).Take(MaxResults).ToList();
-
+            
+            if (searchCriteria.Filter == TaxiSearchFilter.BestRated)
+                return taxis.OrderByDescending(taxi => taxi.Rating).Take(MaxResults).ToList();
+            
             return taxis.OrderBy(taxi => taxi.DistanceToCustomer(searchCriteria.CustomerLocation)).Take(MaxResults).ToList();
         }
 
