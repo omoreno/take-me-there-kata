@@ -27,7 +27,7 @@ namespace TakeMeThere
             cli = new CommandLineInterface(bookingService, null, null);
             var taxiFeatures = new TaxiFeatures(TaxiSize.Small, 4, false, false, false, false);
             var preferences = new TaxiAvailabilityPreferences(TaxiTripLength.Short, 3, 10000);
-            availableTaxi = new AvailableTaxi(taxiFeatures, new Location(1, 1), preferences);
+            availableTaxi = new AvailableTaxi(taxiFeatures, new Location(1, 1), preferences, new TaxiOwnerPreferences(null));
             customer = new Customer(new CustomerPreferences(null));
         }
 
