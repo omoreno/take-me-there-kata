@@ -19,7 +19,7 @@ namespace TakeMeThere
 
         public void RegisterTaxi(TaxiFeatures taxiFeatures, Location currentLocation, TaxiAvailabilityPreferences taxiAvailabilityPreferences)
         {
-            var availableTaxi = new AvailableTaxi(taxiFeatures, currentLocation, taxiAvailabilityPreferences);
+            var availableTaxi = new AvailableTaxi(taxiFeatures, currentLocation, taxiAvailabilityPreferences, new TaxiOwnerPreferences(null));
             registerService.RegisterTaxi(availableTaxi);
         }
 

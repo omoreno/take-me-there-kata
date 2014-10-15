@@ -48,9 +48,9 @@ namespace TakeMeThere
         [Test]
         public void ShouldFilterMostAffordableTaxis()
         {
-            var mostAffodableAvailableTaxi = new AvailableTaxi(taxiFeatures, new Location(1, 1), taxiPreferences);
+            var mostAffodableAvailableTaxi = new AvailableTaxi(taxiFeatures, new Location(1, 1), taxiPreferences, new TaxiOwnerPreferences(null));
             var mostExpensiveTaxi = new TaxiFeatures(TaxiSize.Large, 7, true, true, true, true);
-            var mostExpensiveAvailableTaxi = new AvailableTaxi(mostExpensiveTaxi, new Location(1, 1), taxiPreferences);
+            var mostExpensiveAvailableTaxi = new AvailableTaxi(mostExpensiveTaxi, new Location(1, 1), taxiPreferences, new TaxiOwnerPreferences(null));
             availableTaxis.Add(mostExpensiveAvailableTaxi);
             availableTaxis.Add(mostAffodableAvailableTaxi);
 
@@ -63,10 +63,10 @@ namespace TakeMeThere
         [Test]
         public void ShouldFilterNearestTaxis()
         {
-            var farthestAvailableTaxi = new AvailableTaxi(taxiFeatures, new Location(2, 2), taxiPreferences);
+            var farthestAvailableTaxi = new AvailableTaxi(taxiFeatures, new Location(2, 2), taxiPreferences, new TaxiOwnerPreferences(null));
             var customerLocation = new Location(1, 1);
             var closerTaxi = new TaxiFeatures(TaxiSize.Small, 4, false, false, false, false);
-            var closerAvailableTaxi = new AvailableTaxi(closerTaxi, new Location(1, 1), taxiPreferences);
+            var closerAvailableTaxi = new AvailableTaxi(closerTaxi, new Location(1, 1), taxiPreferences, new TaxiOwnerPreferences(null));
             availableTaxis.Add(farthestAvailableTaxi);
             availableTaxis.Add(closerAvailableTaxi);
 
@@ -79,7 +79,7 @@ namespace TakeMeThere
         [Test]
         public void ShouldFilterTaxisThatMatchCustomerTaxiSizeNeeds()
         {
-            var notMatchingTaxi = new AvailableTaxi(taxiFeatures, new Location(2, 2), taxiPreferences);
+            var notMatchingTaxi = new AvailableTaxi(taxiFeatures, new Location(2, 2), taxiPreferences, new TaxiOwnerPreferences(null));
             availableTaxis.Add(notMatchingTaxi);
             var customerNeeds = new CustomerNeeds(TaxiSize.Large, 4, false, false, false, false);
 
@@ -91,7 +91,7 @@ namespace TakeMeThere
         [Test]
         public void ShouldFilterTaxisThatMatchCustomerNumberOfSeatsNeeds()
         {
-            var notMatchingTaxi = new AvailableTaxi(taxiFeatures, new Location(2, 2), taxiPreferences);
+            var notMatchingTaxi = new AvailableTaxi(taxiFeatures, new Location(2, 2), taxiPreferences, new TaxiOwnerPreferences(null));
             availableTaxis.Add(notMatchingTaxi);
             var customerNeeds = new CustomerNeeds(TaxiSize.Small, 7, false, false, false, false);
 
@@ -103,7 +103,7 @@ namespace TakeMeThere
         [Test]
         public void ShouldFilterTaxisThatMatchCustomerAirConditionedNeeds()
         {
-            var notMatchingTaxi = new AvailableTaxi(taxiFeatures, new Location(2, 2), taxiPreferences);
+            var notMatchingTaxi = new AvailableTaxi(taxiFeatures, new Location(2, 2), taxiPreferences, new TaxiOwnerPreferences(null));
             availableTaxis.Add(notMatchingTaxi);
             var customerNeeds = new CustomerNeeds(TaxiSize.Small, 4, true, false, false, false);
 
@@ -115,7 +115,7 @@ namespace TakeMeThere
         [Test]
         public void ShouldFilterTaxisThatMatchCustomerWheelchairAccesibilityNeeds()
         {
-            var notMatchingTaxi = new AvailableTaxi(taxiFeatures, new Location(2, 2), taxiPreferences);
+            var notMatchingTaxi = new AvailableTaxi(taxiFeatures, new Location(2, 2), taxiPreferences, new TaxiOwnerPreferences(null));
             availableTaxis.Add(notMatchingTaxi);
             var customerNeeds = new CustomerNeeds(TaxiSize.Small, 4, false, true, false, false);
 
@@ -127,7 +127,7 @@ namespace TakeMeThere
         [Test]
         public void ShouldFilterTaxisThatMatchCustomerExtraBaggageSpaceNeeds()
         {
-            var notMatchingTaxi = new AvailableTaxi(taxiFeatures, new Location(2, 2), taxiPreferences);
+            var notMatchingTaxi = new AvailableTaxi(taxiFeatures, new Location(2, 2), taxiPreferences, new TaxiOwnerPreferences(null));
             availableTaxis.Add(notMatchingTaxi);
             var customerNeeds = new CustomerNeeds(TaxiSize.Small, 4, false, false, true, false);
 
@@ -139,7 +139,7 @@ namespace TakeMeThere
         [Test]
         public void ShouldFilterTaxisThatMatchCustomerLuxuriousEquipmentNeeds()
         {
-            var notMatchingTaxi = new AvailableTaxi(taxiFeatures, new Location(2, 2), taxiPreferences);
+            var notMatchingTaxi = new AvailableTaxi(taxiFeatures, new Location(2, 2), taxiPreferences, new TaxiOwnerPreferences(null));
             availableTaxis.Add(notMatchingTaxi);
             var customerNeeds = new CustomerNeeds(TaxiSize.Small, 4, false, false, false, true);
 
@@ -153,7 +153,20 @@ namespace TakeMeThere
         {
             var customerPreferences = new CustomerPreferences(taxiMinimunRating: 4);
             customer = new Customer(customerPreferences);
-            var notMatchingTaxi = new AvailableTaxi(taxiFeatures, new Location(2, 2), taxiPreferences);
+            var notMatchingTaxi = new AvailableTaxi(taxiFeatures, new Location(2, 2), taxiPreferences, new TaxiOwnerPreferences(null));
+            availableTaxis.Add(notMatchingTaxi);
+            var customerNeeds = new CustomerNeeds(TaxiSize.Small, 4, false, false, false, false);
+
+            var retrievedTaxis = api.GetTaxis(customer, new Location(1, 1), TaxiSearchFilter.Nearest, customerNeeds);
+
+            Assert.IsEmpty(retrievedTaxis);
+        }
+
+        [Test]
+        public void ShouldFilterTaxisThatMatchTaxiOwnerMinimunRating()
+        {
+            var taxiOwnerPreferences = new TaxiOwnerPreferences(customerMinimunRating: 4);
+            var notMatchingTaxi = new AvailableTaxi(taxiFeatures, new Location(2, 2), taxiPreferences, taxiOwnerPreferences);
             availableTaxis.Add(notMatchingTaxi);
             var customerNeeds = new CustomerNeeds(TaxiSize.Small, 4, false, false, false, false);
 
@@ -166,19 +179,19 @@ namespace TakeMeThere
         {
             var taxis = new List<AvailableTaxi>();
             for (var i = 0; i < numberOfTaxis; i++)
-                taxis.Add(new AvailableTaxi(taxiFeatures, new Location(1, 1), taxiPreferences));
+                taxis.Add(new AvailableTaxi(taxiFeatures, new Location(1, 1), taxiPreferences, new TaxiOwnerPreferences(null)));
             return taxis;
         }
 
     }
 
-    public class CustomerPreferences
+    public class TaxiOwnerPreferences
     {
-        public int? TaxiMinimunRating { get; private set; }
+        public int? CustomerMinimunRating { get; private set; }
 
-        public CustomerPreferences(int? taxiMinimunRating)
+        public TaxiOwnerPreferences(int? customerMinimunRating)
         {
-            TaxiMinimunRating = taxiMinimunRating;
+            CustomerMinimunRating = customerMinimunRating;
         }
     }
 }
