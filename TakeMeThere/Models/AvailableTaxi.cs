@@ -10,6 +10,7 @@ namespace TakeMeThere.Models
         private readonly int workingLocationRadio;
         public string Id { get; private set; }
         public TaxiFeatures Features { get; private set; }
+        public double? Rating { get; private set; }
 
         public AvailableTaxi(TaxiFeatures taxiFeatures, Location currentLocation, TaxiAvailabilityPreferences taxiAvailabilityPreferences)
         {
