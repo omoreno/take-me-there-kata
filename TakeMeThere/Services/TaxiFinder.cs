@@ -21,7 +21,7 @@ namespace TakeMeThere.Services
                             .GetAll()
                             .Where(taxi => MeetsCustomerNeeds(taxi.Features, searchCriteria.CustomerNeeds))
                             .Where(taxi => MeetsCustomerPreferences(taxi, searchCriteria.Customer))
-                            .Where(taxi => MeetsTaxiOwnerPreferences(taxi, searchCriteria.Customer));
+                            .Where(taxi => MeetsTaxiOwnerPreferences(taxi, searchCriteria.Customer, searchCriteria.CustomerLocation));
 
             if (searchCriteria.Filter == TaxiSearchFilter.MostAffordable)
                 return taxis.OrderBy(taxi => taxi.Features.Price).Take(MaxResults).ToList();
@@ -29,11 +29,11 @@ namespace TakeMeThere.Services
             return taxis.OrderBy(taxi => taxi.DistanceToCustomer(searchCriteria.CustomerLocation)).Take(MaxResults).ToList();
         }
 
-        private bool MeetsTaxiOwnerPreferences(AvailableTaxi taxi, Customer customer)
+        private bool MeetsTaxiOwnerPreferences(AvailableTaxi taxi, Customer customer, Location customerLocation)
         {
             if (taxi.NeedsCustomerWithMinimunRating)
-                return customer.Rating >= taxi.TaxiOwnerPreferences.CustomerMinimunRating;
-            return true;
+                return (customer.Rating >= taxi.MinimunCustomerRating) && taxi.DistanceToCustomer(customerLocation) <= taxi.WorkingLocationRadio;
+            return taxi.DistanceToCustomer(customerLocation) <= taxi.WorkingLocationRadio;
         }
 
         private bool MeetsCustomerPreferences(AvailableTaxi taxi, Customer customer)
