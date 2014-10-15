@@ -19,14 +19,14 @@ namespace TakeMeThere.Services
         {
             var taxis = availableTaxiRepository
                             .GetAll()
-                            .Where(x => MeetsCustomerNeeds(x.Features, searchCriteria.CustomerNeeds))
-                            .Where(x => MeetsCustomerPreferences(x, searchCriteria.Customer))
-                            .Where(x => MeetsTaxiOwnerPreferences(x, searchCriteria.Customer));
+                            .Where(taxi => MeetsCustomerNeeds(taxi.Features, searchCriteria.CustomerNeeds))
+                            .Where(taxi => MeetsCustomerPreferences(taxi, searchCriteria.Customer))
+                            .Where(taxi => MeetsTaxiOwnerPreferences(taxi, searchCriteria.Customer));
 
             if (searchCriteria.Filter == TaxiSearchFilter.MostAffordable)
-                return taxis.OrderBy(x => x.Features.Price).Take(MaxResults).ToList();
+                return taxis.OrderBy(taxi => taxi.Features.Price).Take(MaxResults).ToList();
 
-            return taxis.OrderBy(x => x.DistanceToCustomer(searchCriteria.CustomerLocation)).Take(MaxResults).ToList();
+            return taxis.OrderBy(taxi => taxi.DistanceToCustomer(searchCriteria.CustomerLocation)).Take(MaxResults).ToList();
         }
 
         private bool MeetsTaxiOwnerPreferences(AvailableTaxi taxi, Customer customer)
