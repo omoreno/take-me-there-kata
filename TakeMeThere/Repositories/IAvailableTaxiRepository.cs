@@ -9,5 +9,6 @@ namespace TakeMeThere.Repositories
         bool Exists(string taxiId);
         void Delete(string taxiId);
         List<AvailableTaxi> GetAll();
+        void Update(AvailableTaxi availableTaxi);
     }
 }
