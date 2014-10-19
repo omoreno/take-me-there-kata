@@ -216,15 +216,28 @@ namespace TakeMeThere
     [TestFixture]
     public class RatingServiceTests
     {
+        private Mock<ICustomerRepository> customerRepository;
+        private RatingService ratingService;
+        private AvailableTaxi taxi;
+        private Customer customer;
+        private Mock<IAvailableTaxiRepository> taxiRepository;
+
+        [SetUp]
+        public void SetUp()
+        {
+            customerRepository = new Mock<ICustomerRepository>();
+            taxiRepository = new Mock<IAvailableTaxiRepository>();
+            ratingService = new RatingService(customerRepository.Object, taxiRepository.Object);
+            taxi = new AvailableTaxi(new TaxiFeatures(TaxiSize.Large, 4, false, false, false, false),
+                                     new Location(1, 1),
+                                     new TaxiAvailabilityPreferences(TaxiTripLength.Long, null, 10000));
+            customer = new Customer(new CustomerPreferences(null));
+
+        }
+
         [Test]
         public void TaxiOwnerCanRateCustomer()
         {
-            var customerRepository = new Mock<ICustomerRepository>();
-            var ratingService = new RatingService(customerRepository.Object, null);
-            var taxi = new AvailableTaxi(new TaxiFeatures(TaxiSize.Large, 4, false, false, false, false),
-                                         new Location(1, 1),
-                                         new TaxiAvailabilityPreferences(TaxiTripLength.Long, null, 10000));
-            var customer = new Customer(new CustomerPreferences(null));
 
             ratingService.RateCustomer(taxi, customer, 0);
 
@@ -235,46 +248,11 @@ namespace TakeMeThere
         [Test]
         public void CustomerCanCanRateTaxi()
         {
-            var taxiRepository = new Mock<IAvailableTaxiRepository>();
-            var ratingService = new RatingService(null, taxiRepository.Object);
-            var taxi = new AvailableTaxi(new TaxiFeatures(TaxiSize.Large, 4, false, false, false, false),
-                                         new Location(1, 1),
-                                         new TaxiAvailabilityPreferences(TaxiTripLength.Long, null, 10000));
-            var customer = new Customer(new CustomerPreferences(null));
 
             ratingService.RateTaxi(customer, taxi, 0);
 
             Assert.AreEqual(0, taxi.Rating.Value);
             taxiRepository.Verify(x => x.Update(It.IsAny<AvailableTaxi>()));
-        }
-    }
-
-    public interface ICustomerRepository
-    {
-        void Update(Customer customer);
-    }
-
-    public class RatingService
-    {
-        private readonly ICustomerRepository customerRepository;
-        private readonly IAvailableTaxiRepository availableTaxiRepository;
-
-        public RatingService(ICustomerRepository customerRepository, IAvailableTaxiRepository availableTaxiRepository)
-        {
-            this.customerRepository = customerRepository;
-            this.availableTaxiRepository = availableTaxiRepository;
-        }
-
-        public void RateCustomer(AvailableTaxi taxi, Customer customer, int rate)
-        {
-            customer.Rate(rate);
-            customerRepository.Update(customer);
-        }
-
-        public void RateTaxi(Customer customer, AvailableTaxi taxi, int rate)
-        {
-            taxi.Rate(rate);
-            availableTaxiRepository.Update(taxi);
         }
     }
 }
