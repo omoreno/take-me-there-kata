@@ -1,4 +1,5 @@
-﻿using TakeMeThere.Exceptions;
+﻿using System;
+using TakeMeThere.Exceptions;
 using TakeMeThere.Models;
 using TakeMeThere.Repositories;
 
@@ -20,7 +21,7 @@ namespace TakeMeThere.Services
             if (!availableTaxiRepository.Exists(bookingRequest.TaxiId))
                 throw new AlreadyBookedTaxi();
 
-            bookingRepository.Save(bookingRequest);
+            bookingRepository.Save(new Booking(bookingRequest.CustomerId, bookingRequest.TaxiId, DateTime.Now));
             availableTaxiRepository.Delete(bookingRequest.TaxiId);
             return bookingRequest.Id;
         }
