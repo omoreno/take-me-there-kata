@@ -73,6 +73,7 @@
     <Compile Include="Repositories\ICustomerRepository.cs" />
     <Compile Include="Repositories\InMemoryAvailableTaxiRepository.cs" />
     <Compile Include="Repositories\InMemoryBookingRepository.cs" />
+    <Compile Include="Repositories\InMemoryCustomerRepository.cs" />
     <Compile Include="Services\BookingService.cs" />
     <Compile Include="Services\RatingCalculator.cs" />
     <Compile Include="Services\RatingService.cs" />

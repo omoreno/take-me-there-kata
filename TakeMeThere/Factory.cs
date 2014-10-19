@@ -24,5 +24,10 @@ namespace TakeMeThere
         {
             return new TaxiFinder(new InMemoryAvailableTaxiRepository());
         }
+
+        public static RatingService RatingService()
+        {
+            return new RatingService(new InMemoryCustomerRepository(), new InMemoryAvailableTaxiRepository());
+        }
     }
 }
