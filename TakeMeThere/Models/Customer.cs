@@ -16,7 +16,7 @@ namespace TakeMeThere.Models
 
         public Customer(CustomerPreferences preferences)
         {
-            Id = new Guid().ToString();
+            Id = Guid.NewGuid().ToString();
             Preferences = preferences;
         }
 
