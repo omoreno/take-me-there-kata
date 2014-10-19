@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
@@ -239,9 +240,9 @@ namespace TakeMeThere
         public void TaxiOwnerCanRateCustomer()
         {
 
-            ratingService.RateCustomer(taxi, customer, 0);
+            ratingService.RateCustomer(taxi, customer, 1);
 
-            Assert.AreEqual(0, customer.Rating.Value);
+            Assert.AreEqual(1, customer.Rating.Value);
             customerRepository.Verify(x => x.Update(It.IsAny<Customer>()));
         }
 
@@ -249,10 +250,32 @@ namespace TakeMeThere
         public void CustomerCanCanRateTaxi()
         {
 
-            ratingService.RateTaxi(customer, taxi, 0);
+            ratingService.RateTaxi(customer, taxi, 1);
 
-            Assert.AreEqual(0, taxi.Rating.Value);
+            Assert.AreEqual(1, taxi.Rating.Value);
             taxiRepository.Verify(x => x.Update(It.IsAny<AvailableTaxi>()));
         }
+
+        [Test]
+        public void TaxiRatingShouldBeGreaterOrEqualThanOne()
+        {
+
+            Action act = () => ratingService.RateTaxi(customer, taxi, 0);
+
+            Assert.Throws<NotValidRating>(act.Invoke);
+        }
+
+        [Test]
+        public void TaxiRatingShouldBeLessOrEqualThanFive()
+        {
+
+            Action act = () => ratingService.RateTaxi(customer, taxi, 6);
+
+            Assert.Throws<NotValidRating>(act.Invoke);
+        }
+    }
+
+    public class NotValidRating : Exception
+    {
     }
 }
