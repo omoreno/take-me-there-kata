@@ -42,5 +42,21 @@ namespace TakeMeThere.Models
             timesRated++;
             Rating = ratingCalculator.CalculateNewAverage(Rating, rate, timesRated);
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+            var otherTaxi = obj as AvailableTaxi;
+            if (otherTaxi == null)
+                return false;
+
+            return Id.Equals(otherTaxi.Id);
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
     }
 }
