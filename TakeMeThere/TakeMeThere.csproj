@@ -54,6 +54,7 @@
     <Compile Include="Exceptions\NotValidRating.cs" />
     <Compile Include="Factory.cs" />
     <Compile Include="Models\AvailableTaxi.cs" />
+    <Compile Include="Models\Booking.cs" />
     <Compile Include="Models\BookingRequest.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\CustomerNeeds.cs" />

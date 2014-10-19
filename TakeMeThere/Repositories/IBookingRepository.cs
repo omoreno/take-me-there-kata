@@ -4,6 +4,6 @@ namespace TakeMeThere.Repositories
 {
     public interface IBookingRepository
     {
-        void Save(BookingRequest bookingRequest);
+        void Save(Booking bookingRequest);
     }
 }

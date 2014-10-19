@@ -64,7 +64,7 @@ namespace TakeMeThere
 
             cli.BookTaxi(availableTaxi, customer, new Location(1, 1), new Location(1, 1), 150.3);
 
-            bookingRepository.Verify(x => x.Save(It.IsAny<BookingRequest>()));
+            bookingRepository.Verify(x => x.Save(It.IsAny<Booking>()));
         }
 
         [Test]
