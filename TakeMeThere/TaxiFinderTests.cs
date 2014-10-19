@@ -23,7 +23,7 @@ namespace TakeMeThere
         {
             availableTaxiRepository = new Mock<IAvailableTaxiRepository>();
             var taxiFinder = new TaxiFinder(availableTaxiRepository.Object);
-            api = new CommandLineInterface(null, null, taxiFinder);
+            api = new CommandLineInterface(null, null, taxiFinder, null);
             taxiFeatures = new TaxiFeatures(TaxiSize.Small, 4, false, false, false, false);
             customer = new Customer(new CustomerPreferences(null));
             taxiPreferences = new TaxiAvailabilityPreferences(TaxiTripLength.Short, null, 10000);
