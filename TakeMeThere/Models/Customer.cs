@@ -14,5 +14,10 @@ namespace TakeMeThere.Models
             Id = new Guid().ToString();
             Preferences = preferences;
         }
+
+        public void Rate(int rate)
+        {
+            Rating = rate;
+        }
     }
 }
