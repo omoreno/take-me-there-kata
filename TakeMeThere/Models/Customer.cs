@@ -1,4 +1,5 @@
 ﻿using System;
+using TakeMeThere.Exceptions;
 
 namespace TakeMeThere.Models
 {
@@ -8,6 +9,7 @@ namespace TakeMeThere.Models
         public CustomerPreferences Preferences { get; private set; }
         public bool NeedsTaxiWithMinimunRating { get { return Preferences.TaxiMinimunRating.HasValue; } }
         public double? Rating { get; private set; }
+        private int timesRated;
 
         public Customer(CustomerPreferences preferences)
         {
@@ -19,7 +21,8 @@ namespace TakeMeThere.Models
         {
             if (rate < 1 || rate > 5)
                 throw new NotValidRating();
-            Rating = rate;
+            timesRated++;
+            Rating = (((Rating ?? 0) + rate) / timesRated);
         }
     }
 }
