@@ -71,7 +71,9 @@
     <Compile Include="Repositories\IBookingRepository.cs" />
     <Compile Include="Repositories\ICustomerRepository.cs" />
     <Compile Include="Services\BookingService.cs" />
+    <Compile Include="Services\RatingCalculator.cs" />
     <Compile Include="Services\RatingService.cs" />
+    <Compile Include="Services\RatingValidator.cs" />
     <Compile Include="Services\TaxiFinder.cs" />
     <Compile Include="Services\TaxiRegisterService.cs" />
     <Compile Include="TaxiBookingTests.cs" />
