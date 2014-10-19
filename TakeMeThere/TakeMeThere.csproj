@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Cli.cs" />
     <Compile Include="Exceptions\AlreadyBookedTaxi.cs" />
+    <Compile Include="Exceptions\NotValidRating.cs" />
     <Compile Include="Models\AvailableTaxi.cs" />
     <Compile Include="Models\BookingRequest.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Models\TaxiTripLength.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RatingServiceTests.cs" />
     <Compile Include="Repositories\IAvailableTaxiRepository.cs" />
     <Compile Include="Repositories\IBookingRepository.cs" />
     <Compile Include="Repositories\ICustomerRepository.cs" />

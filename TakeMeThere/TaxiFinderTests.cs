@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
@@ -81,7 +80,7 @@ namespace TakeMeThere
         public void ShouldFilterBestRatedTaxis()
         {
             var worstRatedTaxi = new AvailableTaxi(taxiFeatures, new Location(1, 1), taxiPreferences);
-            worstRatedTaxi.Rate(0);
+            worstRatedTaxi.Rate(1);
             var bestRatedTaxi = new AvailableTaxi(taxiFeatures, new Location(1, 1), taxiPreferences);
             bestRatedTaxi.Rate(5);
             availableTaxis.Add(worstRatedTaxi);
@@ -212,88 +211,5 @@ namespace TakeMeThere
                 taxis.Add(new AvailableTaxi(taxiFeatures, new Location(1, 1), taxiPreferences));
             return taxis;
         }
-    }
-
-    [TestFixture]
-    public class RatingServiceTests
-    {
-        private Mock<ICustomerRepository> customerRepository;
-        private RatingService ratingService;
-        private AvailableTaxi taxi;
-        private Customer customer;
-        private Mock<IAvailableTaxiRepository> taxiRepository;
-
-        [SetUp]
-        public void SetUp()
-        {
-            customerRepository = new Mock<ICustomerRepository>();
-            taxiRepository = new Mock<IAvailableTaxiRepository>();
-            ratingService = new RatingService(customerRepository.Object, taxiRepository.Object);
-            taxi = new AvailableTaxi(new TaxiFeatures(TaxiSize.Large, 4, false, false, false, false),
-                                     new Location(1, 1),
-                                     new TaxiAvailabilityPreferences(TaxiTripLength.Long, null, 10000));
-            customer = new Customer(new CustomerPreferences(null));
-
-        }
-
-        [Test]
-        public void TaxiOwnerCanRateCustomer()
-        {
-
-            ratingService.RateCustomer(taxi, customer, 1);
-
-            Assert.AreEqual(1, customer.Rating.Value);
-            customerRepository.Verify(x => x.Update(It.IsAny<Customer>()));
-        }
-
-        [Test]
-        public void CustomerCanCanRateTaxi()
-        {
-
-            ratingService.RateTaxi(customer, taxi, 1);
-
-            Assert.AreEqual(1, taxi.Rating.Value);
-            taxiRepository.Verify(x => x.Update(It.IsAny<AvailableTaxi>()));
-        }
-
-        [Test]
-        public void TaxiRatingShouldBeGreaterOrEqualThanOne()
-        {
-
-            Action act = () => ratingService.RateTaxi(customer, taxi, 0);
-
-            Assert.Throws<NotValidRating>(act.Invoke);
-        }
-
-        [Test]
-        public void TaxiRatingShouldBeLessOrEqualThanFive()
-        {
-
-            Action act = () => ratingService.RateTaxi(customer, taxi, 6);
-
-            Assert.Throws<NotValidRating>(act.Invoke);
-        }
-
-        [Test]
-        public void CustomerRatingShouldBeGreaterOrEqualThanOne()
-        {
-
-            Action act = () => ratingService.RateCustomer(taxi, customer, 0);
-
-            Assert.Throws<NotValidRating>(act.Invoke);
-        }
-
-        [Test]
-        public void CustomerRatingShouldBeLessOrEqualThanFive()
-        {
-
-            Action act = () => ratingService.RateCustomer(taxi,customer, 6);
-
-            Assert.Throws<NotValidRating>(act.Invoke);
-        }
-    }
-
-    public class NotValidRating : Exception
-    {
     }
 }
