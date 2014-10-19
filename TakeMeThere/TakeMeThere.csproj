@@ -52,6 +52,7 @@
     <Compile Include="Cli.cs" />
     <Compile Include="Exceptions\AlreadyBookedTaxi.cs" />
     <Compile Include="Exceptions\NotValidRating.cs" />
+    <Compile Include="Factory.cs" />
     <Compile Include="Models\AvailableTaxi.cs" />
     <Compile Include="Models\BookingRequest.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -70,12 +71,15 @@
     <Compile Include="Repositories\IAvailableTaxiRepository.cs" />
     <Compile Include="Repositories\IBookingRepository.cs" />
     <Compile Include="Repositories\ICustomerRepository.cs" />
+    <Compile Include="Repositories\InMemoryAvailableTaxiRepository.cs" />
+    <Compile Include="Repositories\InMemoryBookingRepository.cs" />
     <Compile Include="Services\BookingService.cs" />
     <Compile Include="Services\RatingCalculator.cs" />
     <Compile Include="Services\RatingService.cs" />
     <Compile Include="Services\RatingValidator.cs" />
     <Compile Include="Services\TaxiFinder.cs" />
     <Compile Include="Services\TaxiRegisterService.cs" />
+    <Compile Include="StressTests.cs" />
     <Compile Include="TaxiBookingTests.cs" />
     <Compile Include="TaxiFinderTests.cs" />
     <Compile Include="TaxiRegistrationTests.cs" />
