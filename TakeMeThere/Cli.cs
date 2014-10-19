@@ -8,13 +8,15 @@ namespace TakeMeThere
     {
         private readonly BookingService bookingService;
         private readonly TaxiFinder taxiFinder;
+        private readonly CustomerRegisterService customerRegisterService;
         private readonly TaxiRegisterService registerService;
 
-        public CommandLineInterface(BookingService bookingService, TaxiRegisterService registerService, TaxiFinder taxiFinder)
+        public CommandLineInterface(BookingService bookingService, TaxiRegisterService registerService, TaxiFinder taxiFinder, CustomerRegisterService customerRegisterService)
         {
             this.bookingService = bookingService;
             this.registerService = registerService;
             this.taxiFinder = taxiFinder;
+            this.customerRegisterService = customerRegisterService;
         }
 
         public void RegisterTaxi(TaxiFeatures taxiFeatures, Location currentLocation, TaxiAvailabilityPreferences taxiAvailabilityPreferences)
@@ -33,6 +35,11 @@ namespace TakeMeThere
         {
             var criteria = new TaxiSearchCriteria(customer, customerLocation, customerNeeds, filter);
             return taxiFinder.GetTaxis(criteria);
+        }
+
+        public void RegisterCustomer(Customer customer)
+        {
+            customerRegisterService.RegisterCustomer(customer);
         }
     }
 }

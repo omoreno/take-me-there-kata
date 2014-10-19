@@ -17,5 +17,10 @@ namespace TakeMeThere.Repositories
             customers.Remove(customer);
             customers.Add(customer);
         }
+
+        public void Save(Customer customer)
+        {
+            customers.Add(customer);
+        }
     }
 }
