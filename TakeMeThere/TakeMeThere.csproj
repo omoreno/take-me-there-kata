@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cli.cs" />
+    <Compile Include="CustomerRegistrationTests.cs" />
     <Compile Include="Exceptions\AlreadyBookedTaxi.cs" />
     <Compile Include="Exceptions\NotValidRating.cs" />
     <Compile Include="Factory.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Repositories\InMemoryBookingRepository.cs" />
     <Compile Include="Repositories\InMemoryCustomerRepository.cs" />
     <Compile Include="Services\BookingService.cs" />
+    <Compile Include="Services\CustomerRegisterService.cs" />
     <Compile Include="Services\RatingCalculator.cs" />
     <Compile Include="Services\RatingService.cs" />
     <Compile Include="Services\RatingValidator.cs" />
