@@ -273,6 +273,24 @@ namespace TakeMeThere
 
             Assert.Throws<NotValidRating>(act.Invoke);
         }
+
+        [Test]
+        public void CustomerRatingShouldBeGreaterOrEqualThanOne()
+        {
+
+            Action act = () => ratingService.RateCustomer(taxi, customer, 0);
+
+            Assert.Throws<NotValidRating>(act.Invoke);
+        }
+
+        [Test]
+        public void CustomerRatingShouldBeLessOrEqualThanFive()
+        {
+
+            Action act = () => ratingService.RateCustomer(taxi,customer, 6);
+
+            Assert.Throws<NotValidRating>(act.Invoke);
+        }
     }
 
     public class NotValidRating : Exception

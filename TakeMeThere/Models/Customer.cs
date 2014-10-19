@@ -17,6 +17,8 @@ namespace TakeMeThere.Models
 
         public void Rate(int rate)
         {
+            if (rate < 1 || rate > 5)
+                throw new NotValidRating();
             Rating = rate;
         }
     }
