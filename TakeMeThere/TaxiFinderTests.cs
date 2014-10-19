@@ -212,4 +212,45 @@ namespace TakeMeThere
             return taxis;
         }
     }
+
+    [TestFixture]
+    public class RatingServiceTests
+    {
+        [Test]
+        public void TaxiOwnerCanRateCustomer()
+        {
+            var customerRepository = new Mock<ICustomerRepository>();
+            var ratingService = new RatingService(customerRepository.Object);
+            var taxi = new AvailableTaxi(new TaxiFeatures(TaxiSize.Large, 4, false, false, false, false),
+                                         new Location(1, 1),
+                                         new TaxiAvailabilityPreferences(TaxiTripLength.Long, null, 10000));
+            var customer = new Customer(new CustomerPreferences(null));
+
+            ratingService.RateCustomer(taxi, customer, 0);
+
+            Assert.AreEqual(0, customer.Rating.Value);
+            customerRepository.Verify(x => x.Update(It.IsAny<Customer>()));
+        }
+    }
+
+    public interface ICustomerRepository
+    {
+        void Update(Customer customer);
+    }
+
+    public class RatingService
+    {
+        private readonly ICustomerRepository customerRepository;
+
+        public RatingService(ICustomerRepository customerRepository)
+        {
+            this.customerRepository = customerRepository;
+        }
+
+        public void RateCustomer(AvailableTaxi taxi, Customer customer, int rate)
+        {
+            customer.Rate(rate);
+            customerRepository.Update(customer);
+        }
+    }
 }
