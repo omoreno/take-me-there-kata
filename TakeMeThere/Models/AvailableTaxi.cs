@@ -21,7 +21,7 @@ namespace TakeMeThere.Models
 
         public AvailableTaxi(TaxiFeatures taxiFeatures, Location currentLocation, TaxiAvailabilityPreferences taxiAvailabilityPreferences)
         {
-            Id = new Guid().ToString();
+            Id = Guid.NewGuid().ToString();
             Features = taxiFeatures;
             this.currentLocation = currentLocation;
             tripLength = taxiAvailabilityPreferences.TripLength;

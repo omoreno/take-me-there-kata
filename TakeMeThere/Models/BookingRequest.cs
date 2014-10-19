@@ -13,7 +13,7 @@ namespace TakeMeThere.Models
 
         public BookingRequest(string taxiId, string customerId, Location startLocation, Location endLocation, double price)
         {
-            Id = new Guid().ToString();
+            Id = Guid.NewGuid().ToString();
             TaxiId = taxiId;
             CustomerId = customerId;
             this.startLocation = startLocation;
