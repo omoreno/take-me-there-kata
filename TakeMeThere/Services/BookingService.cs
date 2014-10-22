@@ -22,9 +22,10 @@ namespace TakeMeThere.Services
             if (!taxiRepository.Exists(bookingRequest.TaxiId))
                 throw new AlreadyBookedTaxi();
 
-            bookingRepository.Save(new Booking(bookingRequest.CustomerId, bookingRequest.TaxiId, DateTime.Now));
+            var booking = new Booking(bookingRequest.CustomerId, bookingRequest.TaxiId, DateTime.Now);
+            bookingRepository.Save(booking);
             taxiRepository.Delete(bookingRequest.TaxiId);
-            return bookingRequest.Id;
+            return booking.Reference;
         }
 
         public void CancelBooking(string bookreference)

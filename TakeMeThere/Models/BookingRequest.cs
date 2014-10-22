@@ -4,7 +4,6 @@ namespace TakeMeThere.Models
 {
     public class BookingRequest
     {
-        public string Id { get; private set;  }
         public string TaxiId { get; private set; }
         public string CustomerId { get; private set; }
         private readonly Location startLocation;
@@ -13,7 +12,6 @@ namespace TakeMeThere.Models
 
         public BookingRequest(string taxiId, string customerId, Location startLocation, Location endLocation, double price)
         {
-            Id = Guid.NewGuid().ToString();
             TaxiId = taxiId;
             CustomerId = customerId;
             this.startLocation = startLocation;
