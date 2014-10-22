@@ -13,7 +13,7 @@ namespace TakeMeThere.Tests
     {
         private Mock<ICustomerRepository> customerRepository;
         private RatingService ratingService;
-        private AvailableTaxi taxi;
+        private Taxi taxi;
         private Customer customer;
         private Mock<IAvailableTaxiRepository> taxiRepository;
 
@@ -23,7 +23,7 @@ namespace TakeMeThere.Tests
             customerRepository = new Mock<ICustomerRepository>();
             taxiRepository = new Mock<IAvailableTaxiRepository>();
             ratingService = new RatingService(customerRepository.Object, taxiRepository.Object);
-            taxi = new AvailableTaxi(new TaxiFeatures(TaxiSize.Large, 4, false, false, false, false),
+            taxi = new Taxi(new TaxiFeatures(TaxiSize.Large, 4, false, false, false, false),
                                      new Location(1, 1),
                                      new TaxiAvailabilityPreferences(TaxiTripLength.Long, null, 10000));
             customer = new Customer(new CustomerPreferences(null));
@@ -47,7 +47,7 @@ namespace TakeMeThere.Tests
             ratingService.RateTaxi(customer, taxi, 1);
 
             Assert.AreEqual(1, taxi.Rating.Value);
-            taxiRepository.Verify(x => x.Update(It.IsAny<AvailableTaxi>()));
+            taxiRepository.Verify(x => x.Update(It.IsAny<Taxi>()));
         }
 
         [Test]

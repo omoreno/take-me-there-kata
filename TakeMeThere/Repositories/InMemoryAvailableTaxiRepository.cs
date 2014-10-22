@@ -6,17 +6,17 @@ namespace TakeMeThere.Repositories
 {
     public class InMemoryAvailableTaxiRepository : IAvailableTaxiRepository
     {
-        private readonly List<AvailableTaxi> availableTaxis; 
+        private readonly List<Taxi> availableTaxis; 
 
         public InMemoryAvailableTaxiRepository()
         {
             if (availableTaxis == null)
-                availableTaxis = new List<AvailableTaxi>();
+                availableTaxis = new List<Taxi>();
         }
 
-        public void Save(AvailableTaxi availableTaxi)
+        public void Save(Taxi taxi)
         {
-            availableTaxis.Add(availableTaxi);
+            availableTaxis.Add(taxi);
         }
 
         public bool Exists(string taxiId)
@@ -30,15 +30,15 @@ namespace TakeMeThere.Repositories
             availableTaxis.Remove(existingTaxi);
         }
 
-        public List<AvailableTaxi> GetAll()
+        public List<Taxi> GetAll()
         {
             return availableTaxis;
         }
 
-        public void Update(AvailableTaxi availableTaxi)
+        public void Update(Taxi taxi)
         {
-            availableTaxis.Remove(availableTaxi);
-            Save(availableTaxi);
+            availableTaxis.Remove(taxi);
+            Save(taxi);
         }
     }
 }

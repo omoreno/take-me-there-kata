@@ -4,7 +4,7 @@ using TakeMeThere.Services;
 
 namespace TakeMeThere.Models
 {
-    public class AvailableTaxi
+    public class Taxi
     {
         private readonly Location currentLocation;
         private readonly TaxiTripLength tripLength;
@@ -19,7 +19,7 @@ namespace TakeMeThere.Models
 
         public bool NeedsCustomerWithMinimunRating { get { return MinimunCustomerRating.HasValue; } }
 
-        public AvailableTaxi(TaxiFeatures taxiFeatures, Location currentLocation, TaxiAvailabilityPreferences taxiAvailabilityPreferences)
+        public Taxi(TaxiFeatures taxiFeatures, Location currentLocation, TaxiAvailabilityPreferences taxiAvailabilityPreferences)
         {
             Id = Guid.NewGuid().ToString();
             Features = taxiFeatures;
@@ -47,7 +47,7 @@ namespace TakeMeThere.Models
         {
             if (obj == null)
                 return false;
-            var otherTaxi = obj as AvailableTaxi;
+            var otherTaxi = obj as Taxi;
             if (otherTaxi == null)
                 return false;
 

@@ -5,10 +5,10 @@ namespace TakeMeThere.Repositories
 {
     public interface IAvailableTaxiRepository
     {
-        void Save(AvailableTaxi availableTaxi);
+        void Save(Taxi taxi);
         bool Exists(string taxiId);
         void Delete(string taxiId);
-        List<AvailableTaxi> GetAll();
-        void Update(AvailableTaxi availableTaxi);
+        List<Taxi> GetAll();
+        void Update(Taxi taxi);
     }
 }

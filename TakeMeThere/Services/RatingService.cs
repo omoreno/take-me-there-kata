@@ -14,13 +14,13 @@ namespace TakeMeThere.Services
             this.availableTaxiRepository = availableTaxiRepository;
         }
 
-        public void RateCustomer(AvailableTaxi taxi, Customer customer, int rate)
+        public void RateCustomer(Taxi taxi, Customer customer, int rate)
         {
             customer.Rate(rate);
             customerRepository.Update(customer);
         }
 
-        public void RateTaxi(Customer customer, AvailableTaxi taxi, int rate)
+        public void RateTaxi(Customer customer, Taxi taxi, int rate)
         {
             taxi.Rate(rate);
             availableTaxiRepository.Update(taxi);

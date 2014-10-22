@@ -14,7 +14,7 @@ namespace TakeMeThere.Tests
         private CommandLineInterface cli;
         private Mock<IBookingRepository> bookingRepository;
         private Mock<IAvailableTaxiRepository> availableTaxiRepository;
-        private AvailableTaxi availableTaxi;
+        private Taxi taxi;
 
         private Customer customer;
 
@@ -27,7 +27,7 @@ namespace TakeMeThere.Tests
             cli = new CommandLineInterface(bookingService, null, null, null);
             var taxiFeatures = new TaxiFeatures(TaxiSize.Small, 4, false, false, false, false);
             var preferences = new TaxiAvailabilityPreferences(TaxiTripLength.Short, 3, 10000);
-            availableTaxi = new AvailableTaxi(taxiFeatures, new Location(1, 1), preferences);
+            taxi = new Taxi(taxiFeatures, new Location(1, 1), preferences);
             customer = new Customer(new CustomerPreferences(null));
         }
 
@@ -38,7 +38,7 @@ namespace TakeMeThere.Tests
                     .Setup(x => x.Exists(It.IsAny<string>()))
                     .Returns(true);
 
-            var bookingReference = cli.BookTaxi(availableTaxi, customer, new Location(1, 1), new Location(1, 1), 150.3);
+            var bookingReference = cli.BookTaxi(taxi, customer, new Location(1, 1), new Location(1, 1), 150.3);
 
             Assert.IsNotNull(bookingReference);
         }
@@ -50,7 +50,7 @@ namespace TakeMeThere.Tests
                     .Setup(x => x.Exists(It.IsAny<string>()))
                     .Returns(false);
 
-            Action act = () => cli.BookTaxi(availableTaxi, customer, new Location(1, 1), new Location(1, 1), 150.3);
+            Action act = () => cli.BookTaxi(taxi, customer, new Location(1, 1), new Location(1, 1), 150.3);
 
             Assert.Throws(typeof(AlreadyBookedTaxi), act.Invoke);
         }
@@ -62,7 +62,7 @@ namespace TakeMeThere.Tests
                 .Setup(x => x.Exists(It.IsAny<string>()))
                 .Returns(true);
 
-            cli.BookTaxi(availableTaxi, customer, new Location(1, 1), new Location(1, 1), 150.3);
+            cli.BookTaxi(taxi, customer, new Location(1, 1), new Location(1, 1), 150.3);
 
             bookingRepository.Verify(x => x.Save(It.IsAny<Booking>()));
         }
@@ -74,7 +74,7 @@ namespace TakeMeThere.Tests
                 .Setup(x => x.Exists(It.IsAny<string>()))
                 .Returns(true);
 
-            cli.BookTaxi(availableTaxi, customer, new Location(1, 1), new Location(1, 1), 150.3);
+            cli.BookTaxi(taxi, customer, new Location(1, 1), new Location(1, 1), 150.3);
 
             availableTaxiRepository.Verify(x => x.Delete(It.IsAny<string>()));
         }

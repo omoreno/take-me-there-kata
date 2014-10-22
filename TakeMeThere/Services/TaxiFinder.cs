@@ -15,7 +15,7 @@ namespace TakeMeThere.Services
             this.availableTaxiRepository = availableTaxiRepository;
         }
 
-        public List<AvailableTaxi> GetTaxis(TaxiSearchCriteria searchCriteria)
+        public List<Taxi> GetTaxis(TaxiSearchCriteria searchCriteria)
         {
             var taxis = availableTaxiRepository
                             .GetAll()
@@ -32,14 +32,14 @@ namespace TakeMeThere.Services
             return taxis.OrderBy(taxi => taxi.DistanceToCustomer(searchCriteria.CustomerLocation)).Take(MaxResults).ToList();
         }
 
-        private bool MeetsTaxiOwnerPreferences(AvailableTaxi taxi, Customer customer, Location customerLocation)
+        private bool MeetsTaxiOwnerPreferences(Taxi taxi, Customer customer, Location customerLocation)
         {
             if (taxi.NeedsCustomerWithMinimunRating)
                 return (customer.Rating >= taxi.MinimunCustomerRating) && taxi.DistanceToCustomer(customerLocation) <= taxi.WorkingLocationRadio;
             return taxi.DistanceToCustomer(customerLocation) <= taxi.WorkingLocationRadio;
         }
 
-        private bool MeetsCustomerPreferences(AvailableTaxi taxi, Customer customer)
+        private bool MeetsCustomerPreferences(Taxi taxi, Customer customer)
         {
             if (customer.NeedsTaxiWithMinimunRating)
                 return taxi.Rating.HasValue && taxi.Rating.Value >= customer.Preferences.TaxiMinimunRating;

@@ -12,9 +12,9 @@ namespace TakeMeThere.Services
             this.availableTaxiRepository = availableTaxiRepository;
         }
 
-        public void RegisterTaxi(AvailableTaxi availableTaxi)
+        public void RegisterTaxi(Taxi taxi)
         {
-            availableTaxiRepository.Save(availableTaxi);
+            availableTaxiRepository.Save(taxi);
         }
     }
 }
