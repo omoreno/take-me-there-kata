@@ -90,5 +90,22 @@ namespace TakeMeThere.Tests
 
             Assert.Throws(typeof (BookReferenceNotExists), act.Invoke);
         }
+
+        [Test]
+        public void CannotCancelBookingWhenCancellationTimeLimitReached()
+        {
+            bookingRepository
+                .Setup(x => x.Exists(It.IsAny<string>()))
+                .Returns(true);
+
+            bookingRepository
+                .Setup(x => x.FindByReference(It.IsAny<string>()))
+                .Returns(new Booking(Guid.NewGuid().ToString(), Guid.NewGuid().ToString(),
+                            DateTime.Now.AddMinutes(-11)));
+
+            Action act = () => cli.CancelBooking("bookReference");
+
+            Assert.Throws(typeof(CancellationTimeLimitReached), act.Invoke);
+        }
     }
 }

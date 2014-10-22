@@ -42,6 +42,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Cli.cs" />
     <Compile Include="Exceptions\BookReferenceNotExists.cs" />
+    <Compile Include="Exceptions\CancellationTimeLimitReached.cs" />
     <Compile Include="Services\LocationService.cs" />
     <Compile Include="Tests\CustomerRegistrationTests.cs" />
     <Compile Include="Exceptions\AlreadyBookedTaxi.cs" />
