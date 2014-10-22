@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using TakeMeThere.Models;
 
 namespace TakeMeThere.Repositories
@@ -16,6 +17,11 @@ namespace TakeMeThere.Repositories
         public void Save(Booking booking)
         {
             bookings.Add(booking);
+        }
+
+        public bool Exists(string bookReference)
+        {
+            return bookings.Any(x => x.Reference == bookReference);
         }
     }
 }
