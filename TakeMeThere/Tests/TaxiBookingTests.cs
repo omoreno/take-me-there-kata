@@ -84,11 +84,11 @@ namespace TakeMeThere.Tests
         {
             bookingRepository
                 .Setup(x => x.FindByReference(It.IsAny<string>()))
-                .Throws(new BookReferenceNotExists());
+                .Throws(new BookingNotExists());
 
             Action act = () => cli.CancelBooking("NotValidBookReference");
 
-            Assert.Throws(typeof (BookReferenceNotExists), act.Invoke);
+            Assert.Throws(typeof (BookingNotExists), act.Invoke);
         }
 
         [Test]
