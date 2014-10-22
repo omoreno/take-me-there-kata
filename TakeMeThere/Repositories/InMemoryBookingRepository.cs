@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TakeMeThere.Exceptions;
 using TakeMeThere.Models;
 
 namespace TakeMeThere.Repositories
@@ -19,9 +20,13 @@ namespace TakeMeThere.Repositories
             bookings.Add(booking);
         }
 
-        public bool Exists(string bookReference)
+        public Booking FindByReference(string bookReference)
         {
-            return bookings.Any(x => x.Reference == bookReference);
+            var booking = bookings.FirstOrDefault(x => x.Reference == bookReference);
+            if (booking == null)
+                throw new BookReferenceNotExists();
+            
+            return booking;
         }
     }
 }

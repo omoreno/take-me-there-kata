@@ -83,8 +83,8 @@ namespace TakeMeThere.Tests
         public void CannotCancelBookingIfNotExists()
         {
             bookingRepository
-                .Setup(x => x.Exists(It.IsAny<string>()))
-                .Returns(false);
+                .Setup(x => x.FindByReference(It.IsAny<string>()))
+                .Throws(new BookReferenceNotExists());
 
             Action act = () => cli.CancelBooking("NotValidBookReference");
 
@@ -94,10 +94,6 @@ namespace TakeMeThere.Tests
         [Test]
         public void CannotCancelBookingWhenCancellationTimeLimitReached()
         {
-            bookingRepository
-                .Setup(x => x.Exists(It.IsAny<string>()))
-                .Returns(true);
-
             bookingRepository
                 .Setup(x => x.FindByReference(It.IsAny<string>()))
                 .Returns(new Booking(Guid.NewGuid().ToString(), Guid.NewGuid().ToString(),
