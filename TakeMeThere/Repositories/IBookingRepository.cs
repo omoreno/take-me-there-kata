@@ -6,5 +6,6 @@ namespace TakeMeThere.Repositories
     {
         void Save(Booking bookingRequest);
         Booking FindByReference(string bookReference);
+        void Delete(Booking booking);
     }
 }

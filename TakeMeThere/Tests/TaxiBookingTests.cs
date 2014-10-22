@@ -103,5 +103,18 @@ namespace TakeMeThere.Tests
 
             Assert.Throws(typeof(CancellationTimeLimitReached), act.Invoke);
         }
+
+        [Test]
+        public void ShouldCancelBooking()
+        {
+            bookingRepository
+                .Setup(x => x.FindByReference(It.IsAny<string>()))
+                .Returns(new Booking(Guid.NewGuid().ToString(), Guid.NewGuid().ToString(),
+                            DateTime.Now.AddMinutes(-9)));
+
+            cli.CancelBooking("bookReference");
+
+            bookingRepository.Verify(x => x.Delete(It.IsAny<Booking>()));
+        }
     }
 }

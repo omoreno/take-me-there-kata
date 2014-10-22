@@ -2,7 +2,7 @@
 
 namespace TakeMeThere.Exceptions
 {
-    public class BookReferenceNotExists : Exception
+    public class BookingNotExists : Exception
     {
     }
 }
