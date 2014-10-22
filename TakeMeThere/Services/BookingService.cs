@@ -30,6 +30,9 @@ namespace TakeMeThere.Services
         {
             if (!bookingRepository.Exists(bookreference))
                 throw new BookReferenceNotExists();
+            
+            var booking = bookingRepository.FindByReference(bookreference);
+            throw new CancellationTimeLimitReached();
         }
     }
 }
