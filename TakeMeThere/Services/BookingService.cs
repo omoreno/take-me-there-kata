@@ -25,5 +25,11 @@ namespace TakeMeThere.Services
             taxiRepository.Delete(bookingRequest.TaxiId);
             return bookingRequest.Id;
         }
+
+        public void CancelBooking(string bookreference)
+        {
+            if (!bookingRepository.Exists(bookreference))
+                throw new BookReferenceNotExists();
+        }
     }
 }
