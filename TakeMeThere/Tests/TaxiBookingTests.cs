@@ -6,7 +6,7 @@ using TakeMeThere.Models;
 using TakeMeThere.Repositories;
 using TakeMeThere.Services;
 
-namespace TakeMeThere
+namespace TakeMeThere.Tests
 {
     [TestFixture]
     public class TaxiBookingTests
