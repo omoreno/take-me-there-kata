@@ -29,10 +29,15 @@ namespace TakeMeThere.Services
         public void CancelBooking(string bookreference)
         {
             var booking = bookingRepository.FindByReference(bookreference);
-            if (booking.BookingDate.AddMinutes(10) < DateTime.Now)
+            if (CancellationTimeWasReached(booking.BookingDate))
                 throw new CancellationTimeLimitReached();
             
             bookingRepository.Delete(booking);
+        }
+
+        private static bool CancellationTimeWasReached(DateTime bookingDate)
+        {
+            return bookingDate.AddMinutes(10) < DateTime.Now;
         }
     }
 }
