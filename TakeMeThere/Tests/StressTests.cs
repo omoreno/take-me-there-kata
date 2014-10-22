@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using NUnit.Framework;
 using TakeMeThere.Models;
 
-namespace TakeMeThere
+namespace TakeMeThere.Tests
 {
     [TestFixture]
     public class StressTests
