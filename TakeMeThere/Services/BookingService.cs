@@ -9,6 +9,7 @@ namespace TakeMeThere.Services
     {
         private readonly ITaxiRepository taxiRepository;
         private readonly IBookingRepository bookingRepository;
+        public static int CancellationTimeInMinutes = 10;
 
         public BookingService(ITaxiRepository taxiRepository, IBookingRepository bookingRepository)
         {
@@ -37,7 +38,7 @@ namespace TakeMeThere.Services
 
         private static bool CancellationTimeWasReached(DateTime bookingDate)
         {
-            return bookingDate.AddMinutes(10) < DateTime.Now;
+            return bookingDate.AddMinutes(CancellationTimeInMinutes) < DateTime.Now;
         }
     }
 }
