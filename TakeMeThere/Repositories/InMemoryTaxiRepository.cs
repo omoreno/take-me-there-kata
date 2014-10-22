@@ -4,11 +4,11 @@ using TakeMeThere.Models;
 
 namespace TakeMeThere.Repositories
 {
-    public class InMemoryAvailableTaxiRepository : IAvailableTaxiRepository
+    public class InMemoryTaxiRepository : ITaxiRepository
     {
         private readonly List<Taxi> availableTaxis; 
 
-        public InMemoryAvailableTaxiRepository()
+        public InMemoryTaxiRepository()
         {
             if (availableTaxis == null)
                 availableTaxis = new List<Taxi>();

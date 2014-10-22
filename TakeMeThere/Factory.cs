@@ -6,7 +6,7 @@ namespace TakeMeThere
     public class Factory
     {
         private static InMemoryCustomerRepository inMemoryCustomerRepository;
-        private static InMemoryAvailableTaxiRepository inMemoryAvailableTaxiRepository;
+        private static InMemoryTaxiRepository _inMemoryTaxiRepository;
         private static InMemoryBookingRepository inMemoryBookingRepository;
 
         public static CommandLineInterface CommandLineInterface()
@@ -21,11 +21,11 @@ namespace TakeMeThere
             return inMemoryCustomerRepository;
         }
 
-        public static InMemoryAvailableTaxiRepository InMemoryAvailableTaxiRepository()
+        public static InMemoryTaxiRepository InMemoryAvailableTaxiRepository()
         {
-            if (inMemoryAvailableTaxiRepository == null)
-                inMemoryAvailableTaxiRepository = new InMemoryAvailableTaxiRepository();
-            return inMemoryAvailableTaxiRepository;
+            if (_inMemoryTaxiRepository == null)
+                _inMemoryTaxiRepository = new InMemoryTaxiRepository();
+            return _inMemoryTaxiRepository;
         }
 
         public static InMemoryBookingRepository InMemoryBookingRepository()

@@ -6,12 +6,12 @@ namespace TakeMeThere.Services
     public class RatingService
     {
         private readonly ICustomerRepository customerRepository;
-        private readonly IAvailableTaxiRepository availableTaxiRepository;
+        private readonly ITaxiRepository taxiRepository;
 
-        public RatingService(ICustomerRepository customerRepository, IAvailableTaxiRepository availableTaxiRepository)
+        public RatingService(ICustomerRepository customerRepository, ITaxiRepository taxiRepository)
         {
             this.customerRepository = customerRepository;
-            this.availableTaxiRepository = availableTaxiRepository;
+            this.taxiRepository = taxiRepository;
         }
 
         public void RateCustomer(Taxi taxi, Customer customer, int rate)
@@ -23,7 +23,7 @@ namespace TakeMeThere.Services
         public void RateTaxi(Customer customer, Taxi taxi, int rate)
         {
             taxi.Rate(rate);
-            availableTaxiRepository.Update(taxi);
+            taxiRepository.Update(taxi);
         }
     }
 }

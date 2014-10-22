@@ -12,7 +12,7 @@ namespace TakeMeThere.Tests
         [Test]
         public void ShouldRegisterNewAvailableTaxi()
         {
-            var availableTaxiRepository = new Mock<IAvailableTaxiRepository>();
+            var availableTaxiRepository = new Mock<ITaxiRepository>();
             var registerService = new TaxiRegisterService(availableTaxiRepository.Object);
             var api = new CommandLineInterface(null, registerService, null, null);
             var taxi = new TaxiFeatures(size: TaxiSize.Small, numberOfSeats: 4, airConditioned: true,

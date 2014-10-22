@@ -3,7 +3,7 @@ using TakeMeThere.Models;
 
 namespace TakeMeThere.Repositories
 {
-    public interface IAvailableTaxiRepository
+    public interface ITaxiRepository
     {
         void Save(Taxi taxi);
         bool Exists(string taxiId);
