@@ -28,5 +28,10 @@ namespace TakeMeThere.Repositories
             
             return booking;
         }
+
+        public void Delete(Booking booking)
+        {
+            bookings.Remove(booking);
+        }
     }
 }
