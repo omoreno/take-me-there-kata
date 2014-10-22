@@ -7,22 +7,22 @@ namespace TakeMeThere.Services
 {
     public class BookingService
     {
-        private readonly IAvailableTaxiRepository availableTaxiRepository;
+        private readonly ITaxiRepository taxiRepository;
         private readonly IBookingRepository bookingRepository;
 
-        public BookingService(IAvailableTaxiRepository availableTaxiRepository, IBookingRepository bookingRepository)
+        public BookingService(ITaxiRepository taxiRepository, IBookingRepository bookingRepository)
         {
-            this.availableTaxiRepository = availableTaxiRepository;
+            this.taxiRepository = taxiRepository;
             this.bookingRepository = bookingRepository;
         }
 
         public string BookTaxi(BookingRequest bookingRequest)
         {
-            if (!availableTaxiRepository.Exists(bookingRequest.TaxiId))
+            if (!taxiRepository.Exists(bookingRequest.TaxiId))
                 throw new AlreadyBookedTaxi();
 
             bookingRepository.Save(new Booking(bookingRequest.CustomerId, bookingRequest.TaxiId, DateTime.Now));
-            availableTaxiRepository.Delete(bookingRequest.TaxiId);
+            taxiRepository.Delete(bookingRequest.TaxiId);
             return bookingRequest.Id;
         }
     }

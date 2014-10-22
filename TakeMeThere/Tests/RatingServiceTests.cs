@@ -15,13 +15,13 @@ namespace TakeMeThere.Tests
         private RatingService ratingService;
         private Taxi taxi;
         private Customer customer;
-        private Mock<IAvailableTaxiRepository> taxiRepository;
+        private Mock<ITaxiRepository> taxiRepository;
 
         [SetUp]
         public void SetUp()
         {
             customerRepository = new Mock<ICustomerRepository>();
-            taxiRepository = new Mock<IAvailableTaxiRepository>();
+            taxiRepository = new Mock<ITaxiRepository>();
             ratingService = new RatingService(customerRepository.Object, taxiRepository.Object);
             taxi = new Taxi(new TaxiFeatures(TaxiSize.Large, 4, false, false, false, false),
                                      new Location(1, 1),

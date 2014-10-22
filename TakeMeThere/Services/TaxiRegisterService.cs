@@ -5,16 +5,16 @@ namespace TakeMeThere.Services
 {
     public class TaxiRegisterService
     {
-        private readonly IAvailableTaxiRepository availableTaxiRepository;
+        private readonly ITaxiRepository taxiRepository;
 
-        public TaxiRegisterService(IAvailableTaxiRepository availableTaxiRepository)
+        public TaxiRegisterService(ITaxiRepository taxiRepository)
         {
-            this.availableTaxiRepository = availableTaxiRepository;
+            this.taxiRepository = taxiRepository;
         }
 
         public void RegisterTaxi(Taxi taxi)
         {
-            availableTaxiRepository.Save(taxi);
+            taxiRepository.Save(taxi);
         }
     }
 }

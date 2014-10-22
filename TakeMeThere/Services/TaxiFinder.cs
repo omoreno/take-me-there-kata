@@ -7,17 +7,17 @@ namespace TakeMeThere.Services
 {
     public class TaxiFinder
     {
-        private readonly IAvailableTaxiRepository availableTaxiRepository;
+        private readonly ITaxiRepository taxiRepository;
         private const int MaxResults = 10;
 
-        public TaxiFinder(IAvailableTaxiRepository availableTaxiRepository)
+        public TaxiFinder(ITaxiRepository taxiRepository)
         {
-            this.availableTaxiRepository = availableTaxiRepository;
+            this.taxiRepository = taxiRepository;
         }
 
         public List<Taxi> GetTaxis(TaxiSearchCriteria searchCriteria)
         {
-            var taxis = availableTaxiRepository
+            var taxis = taxiRepository
                             .GetAll()
                             .Where(taxi => MeetsCustomerNeeds(taxi.Features, searchCriteria.CustomerNeeds))
                             .Where(taxi => MeetsCustomerPreferences(taxi, searchCriteria.Customer))

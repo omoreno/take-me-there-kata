@@ -12,7 +12,7 @@ namespace TakeMeThere.Tests
     public class TaxiFinderTests
     {
         private CommandLineInterface api;
-        private Mock<IAvailableTaxiRepository> availableTaxiRepository;
+        private Mock<ITaxiRepository> availableTaxiRepository;
         private TaxiFeatures taxiFeatures;
         private Customer customer;
         private TaxiAvailabilityPreferences taxiPreferences;
@@ -21,7 +21,7 @@ namespace TakeMeThere.Tests
         [SetUp]
         public void SetUp()
         {
-            availableTaxiRepository = new Mock<IAvailableTaxiRepository>();
+            availableTaxiRepository = new Mock<ITaxiRepository>();
             var taxiFinder = new TaxiFinder(availableTaxiRepository.Object);
             api = new CommandLineInterface(null, null, taxiFinder, null);
             taxiFeatures = new TaxiFeatures(TaxiSize.Small, 4, false, false, false, false);

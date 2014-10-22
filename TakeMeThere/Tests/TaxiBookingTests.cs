@@ -13,7 +13,7 @@ namespace TakeMeThere.Tests
     {
         private CommandLineInterface cli;
         private Mock<IBookingRepository> bookingRepository;
-        private Mock<IAvailableTaxiRepository> availableTaxiRepository;
+        private Mock<ITaxiRepository> availableTaxiRepository;
         private Taxi taxi;
 
         private Customer customer;
@@ -21,7 +21,7 @@ namespace TakeMeThere.Tests
         [SetUp]
         public void SetUp()
         {
-            availableTaxiRepository = new Mock<IAvailableTaxiRepository>();
+            availableTaxiRepository = new Mock<ITaxiRepository>();
             bookingRepository = new Mock<IBookingRepository>();
             var bookingService = new BookingService(availableTaxiRepository.Object, bookingRepository.Object);
             cli = new CommandLineInterface(bookingService, null, null, null);
