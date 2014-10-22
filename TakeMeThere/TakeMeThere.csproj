@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cli.cs" />
+    <Compile Include="Services\LocationService.cs" />
     <Compile Include="Tests\CustomerRegistrationTests.cs" />
     <Compile Include="Exceptions\AlreadyBookedTaxi.cs" />
     <Compile Include="Exceptions\NotValidRating.cs" />
