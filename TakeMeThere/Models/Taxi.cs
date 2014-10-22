@@ -16,6 +16,7 @@ namespace TakeMeThere.Models
         private int timesRated;
         private readonly RatingCalculator ratingCalculator = new RatingCalculator();
         private readonly RatingValidator ratingValidator = new RatingValidator();
+        private readonly LocationService locationService = new LocationService();
 
         public bool NeedsCustomerWithMinimunRating { get { return MinimunCustomerRating.HasValue; } }
 
@@ -31,8 +32,7 @@ namespace TakeMeThere.Models
 
         public double DistanceToCustomer(Location customerLocation)
         {
-            return Math.Sqrt(Math.Pow((currentLocation.Latitude - customerLocation.Latitude), 2) +
-                  Math.Pow((currentLocation.Longitude - customerLocation.Longitude), 2));
+            return locationService.GetDistanceBetween(currentLocation, customerLocation);
         }
 
         public void Rate(int rate)
