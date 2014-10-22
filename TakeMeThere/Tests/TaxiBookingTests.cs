@@ -78,5 +78,17 @@ namespace TakeMeThere.Tests
 
             availableTaxiRepository.Verify(x => x.Delete(It.IsAny<string>()));
         }
+
+        [Test]
+        public void CannotCancelBookingIfNotExists()
+        {
+            bookingRepository
+                .Setup(x => x.Exists(It.IsAny<string>()))
+                .Returns(false);
+
+            Action act = () => cli.CancelBooking("NotValidBookReference");
+
+            Assert.Throws(typeof (BookReferenceNotExists), act.Invoke);
+        }
     }
 }

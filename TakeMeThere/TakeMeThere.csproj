@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cli.cs" />
+    <Compile Include="Exceptions\BookReferenceNotExists.cs" />
     <Compile Include="Services\LocationService.cs" />
     <Compile Include="Tests\CustomerRegistrationTests.cs" />
     <Compile Include="Exceptions\AlreadyBookedTaxi.cs" />

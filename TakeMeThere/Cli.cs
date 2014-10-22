@@ -41,5 +41,10 @@ namespace TakeMeThere
         {
             customerRegisterService.RegisterCustomer(customer);
         }
+
+        public void CancelBooking(string bookreference)
+        {
+            bookingService.CancelBooking(bookreference);
+        }
     }
 }
