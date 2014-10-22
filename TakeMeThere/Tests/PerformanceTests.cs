@@ -5,7 +5,7 @@ using TakeMeThere.Models;
 namespace TakeMeThere.Tests
 {
     [TestFixture]
-    public class StressTests
+    public class PerformanceTests
     {
         private CommandLineInterface api;
 

@@ -83,7 +83,7 @@
     <Compile Include="Services\RatingValidator.cs" />
     <Compile Include="Services\TaxiFinder.cs" />
     <Compile Include="Services\TaxiRegisterService.cs" />
-    <Compile Include="Tests\StressTests.cs" />
+    <Compile Include="Tests\PerformanceTests.cs" />
     <Compile Include="Tests\TaxiBookingTests.cs" />
     <Compile Include="Tests\TaxiFinderTests.cs" />
     <Compile Include="Tests\TaxiRegistrationTests.cs" />
