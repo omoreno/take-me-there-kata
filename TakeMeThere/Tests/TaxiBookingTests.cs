@@ -97,7 +97,7 @@ namespace TakeMeThere.Tests
             bookingRepository
                 .Setup(x => x.FindByReference(It.IsAny<string>()))
                 .Returns(new Booking(Guid.NewGuid().ToString(), Guid.NewGuid().ToString(),
-                            DateTime.Now.AddMinutes(-11)));
+                            DateTime.Now.AddMinutes(-(BookingService.CancellationTimeInMinutes + 1))));
 
             Action act = () => cli.CancelBooking("bookReference");
 
@@ -110,7 +110,7 @@ namespace TakeMeThere.Tests
             bookingRepository
                 .Setup(x => x.FindByReference(It.IsAny<string>()))
                 .Returns(new Booking(Guid.NewGuid().ToString(), Guid.NewGuid().ToString(),
-                            DateTime.Now.AddMinutes(-9)));
+                            DateTime.Now.AddMinutes(-(BookingService.CancellationTimeInMinutes - 1))));
 
             cli.CancelBooking("bookReference");
 
