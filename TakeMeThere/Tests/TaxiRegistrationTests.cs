@@ -22,7 +22,7 @@ namespace TakeMeThere.Tests
 
             api.RegisterTaxi(taxi, new Location(0, 0), taxiAvailabilityPreferences);
 
-            availableTaxiRepository.Verify(x => x.Save(It.IsAny<AvailableTaxi>()));
+            availableTaxiRepository.Verify(x => x.Save(It.IsAny<Taxi>()));
         }
     }
 }
