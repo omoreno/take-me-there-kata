@@ -24,7 +24,7 @@ namespace TakeMeThere.Repositories
         {
             var booking = bookings.FirstOrDefault(x => x.Reference == bookReference);
             if (booking == null)
-                throw new BookReferenceNotExists();
+                throw new BookingNotExists();
             
             return booking;
         }

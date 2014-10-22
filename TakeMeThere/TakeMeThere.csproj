@@ -51,7 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cli.cs" />
-    <Compile Include="Exceptions\BookReferenceNotExists.cs" />
+    <Compile Include="Exceptions\BookingNotExists.cs" />
     <Compile Include="Exceptions\CancellationTimeLimitReached.cs" />
     <Compile Include="Services\LocationService.cs" />
     <Compile Include="Tests\CustomerRegistrationTests.cs" />
