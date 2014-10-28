@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Text;
 using TakeMeThere.Models;
+using TakeMeThere.ValueObjects;
 
 namespace TakeMeThere
 {
@@ -32,6 +33,7 @@ namespace TakeMeThere
             watch.Stop();
             Console.WriteLine("Time (ms):" + watch.ElapsedMilliseconds);
             Console.WriteLine("------------------------------------------------");
+            Console.WriteLine("10 most promising taxi Ids:");
             foreach (var taxi in taxis)
                 Console.WriteLine(taxi.Id);
         }

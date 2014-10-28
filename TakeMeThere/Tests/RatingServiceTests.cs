@@ -5,6 +5,7 @@ using TakeMeThere.Exceptions;
 using TakeMeThere.Models;
 using TakeMeThere.Repositories;
 using TakeMeThere.Services;
+using TakeMeThere.ValueObjects;
 
 namespace TakeMeThere.Tests
 {

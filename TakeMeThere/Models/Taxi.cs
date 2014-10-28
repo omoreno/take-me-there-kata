@@ -1,6 +1,7 @@
 ﻿using System;
 using TakeMeThere.Exceptions;
 using TakeMeThere.Services;
+using TakeMeThere.ValueObjects;
 
 namespace TakeMeThere.Models
 {

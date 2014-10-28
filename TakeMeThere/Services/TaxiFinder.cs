@@ -2,6 +2,7 @@
 using System.Linq;
 using TakeMeThere.Models;
 using TakeMeThere.Repositories;
+using TakeMeThere.ValueObjects;
 
 namespace TakeMeThere.Services
 {

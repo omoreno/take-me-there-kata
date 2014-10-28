@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using TakeMeThere.Models;
 using TakeMeThere.Services;
+using TakeMeThere.ValueObjects;
 
 namespace TakeMeThere
 {
