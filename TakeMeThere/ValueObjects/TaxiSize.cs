@@ -1,4 +1,4 @@
-﻿namespace TakeMeThere.Models
+﻿namespace TakeMeThere.ValueObjects
 {
     public enum TaxiSize
     {

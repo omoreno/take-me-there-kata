@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TakeMeThere.Models
+﻿namespace TakeMeThere.ValueObjects
 {
     public class TaxiFeatures
     {

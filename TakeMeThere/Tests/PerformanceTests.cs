@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using NUnit.Framework;
 using TakeMeThere.Models;
+using TakeMeThere.ValueObjects;
 
 namespace TakeMeThere.Tests
 {

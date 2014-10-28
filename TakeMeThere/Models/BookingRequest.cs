@@ -1,4 +1,5 @@
 ﻿using System;
+using TakeMeThere.ValueObjects;
 
 namespace TakeMeThere.Models
 {

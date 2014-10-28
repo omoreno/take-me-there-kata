@@ -1,4 +1,6 @@
-﻿namespace TakeMeThere.Models
+﻿using TakeMeThere.Models;
+
+namespace TakeMeThere.ValueObjects
 {
     public class TaxiSearchCriteria
     {
