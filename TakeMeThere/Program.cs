@@ -7,6 +7,7 @@ namespace TakeMeThere
 {
     class Program
     {
+        private static readonly Random Random = new Random();
         static void Main(string[] args)
         {
             var cli = Factory.CommandLineInterface();
@@ -38,7 +39,7 @@ namespace TakeMeThere
         private static void Create1MTaxis(CommandLineInterface cli)
         {
             for (var i = 0; i < 1000000; i++)
-                cli.RegisterTaxi(new TaxiFeatures(TaxiSize.Small, 4, true, false, true, true), new Location(100, 100), new TaxiAvailabilityPreferences(TaxiTripLength.Short, null, 10000));
+                cli.RegisterTaxi(new TaxiFeatures(RandomTaxiSize(), 4, RandomBoolean(), RandomBoolean(), RandomBoolean(), RandomBoolean()), new Location(100, 100), new TaxiAvailabilityPreferences(TaxiTripLength.Short, null, 10000));
         }
 
         private static Customer Create1MCustomers(CommandLineInterface cli)
@@ -50,6 +51,16 @@ namespace TakeMeThere
                 cli.RegisterCustomer(customer);
             }
             return customer;
+        }
+
+        private static TaxiSize RandomTaxiSize()
+        {
+            return (TaxiSize)Random.Next(0, 3);
+        }
+
+        private static bool RandomBoolean()
+        {
+            return Random.Next(0, 2) == 0;
         }
     }
 }
