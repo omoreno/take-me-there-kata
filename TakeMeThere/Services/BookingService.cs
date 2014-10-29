@@ -9,7 +9,7 @@ namespace TakeMeThere.Services
     {
         private readonly ITaxiRepository taxiRepository;
         private readonly IBookingRepository bookingRepository;
-        public static int CancellationTimeInMinutes = 10;
+        public const int CancellationTimeInMinutes = 10;
 
         public BookingService(ITaxiRepository taxiRepository, IBookingRepository bookingRepository)
         {
