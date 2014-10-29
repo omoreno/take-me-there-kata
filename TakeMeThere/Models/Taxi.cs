@@ -33,7 +33,7 @@ namespace TakeMeThere.Models
 
         public double DistanceToCustomer(Location customerLocation)
         {
-            return locationService.GetDistanceBetween(currentLocation, customerLocation);
+            return locationService.GetDistanceInMetersBetween(currentLocation, customerLocation);
         }
 
         public void Rate(int rate)
