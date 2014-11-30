@@ -30,14 +30,14 @@ namespace TakeMeThere.Services
             if (searchCriteria.Filter == TaxiSearchFilter.BestRated)
                 return taxis.OrderByDescending(taxi => taxi.Rating).Take(MaxResults).ToList();
             
-            return taxis.OrderBy(taxi => taxi.DistanceToCustomer(searchCriteria.CustomerLocation)).Take(MaxResults).ToList();
+            return taxis.OrderBy(taxi => taxi.GetDistanceToCustomer(searchCriteria.CustomerLocation)).Take(MaxResults).ToList();
         }
 
         private bool MeetsTaxiOwnerPreferences(Taxi taxi, Customer customer, Location customerLocation)
         {
             if (taxi.NeedsCustomerWithMinimunRating)
-                return (customer.Rating >= taxi.MinimunCustomerRating) && taxi.DistanceToCustomer(customerLocation) <= taxi.WorkingLocationRadio;
-            return taxi.DistanceToCustomer(customerLocation) <= taxi.WorkingLocationRadio;
+                return (customer.Rating >= taxi.MinimunCustomerRating) && taxi.GetDistanceToCustomer(customerLocation) <= taxi.WorkingLocationRadio;
+            return taxi.GetDistanceToCustomer(customerLocation) <= taxi.WorkingLocationRadio;
         }
 
         private bool MeetsCustomerPreferences(Taxi taxi, Customer customer)
