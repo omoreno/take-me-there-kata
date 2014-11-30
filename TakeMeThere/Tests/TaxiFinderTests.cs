@@ -74,7 +74,7 @@ namespace TakeMeThere.Tests
             var retrievedTaxis = api.GetTaxis(customer, customerLocation, TaxiSearchFilter.Nearest, new CustomerNeeds(TaxiSize.Small, 4, false, false, false, false));
 
             Assert.AreEqual(2, retrievedTaxis.Count);
-            Assert.Less(retrievedTaxis.First().DistanceToCustomer(customerLocation), retrievedTaxis.Last().DistanceToCustomer(customerLocation));
+            Assert.Less(retrievedTaxis.First().GetDistanceToCustomer(customerLocation), retrievedTaxis.Last().GetDistanceToCustomer(customerLocation));
         }
 
         [Test]

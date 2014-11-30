@@ -31,7 +31,7 @@ namespace TakeMeThere.Models
             WorkingLocationRadio = taxiAvailabilityPreferences.WorkingLocationRadio;
         }
 
-        public double DistanceToCustomer(Location customerLocation)
+        public double GetDistanceToCustomer(Location customerLocation)
         {
             return locationService.GetDistanceInMetersBetween(currentLocation, customerLocation);
         }
