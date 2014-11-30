@@ -2,9 +2,12 @@
 {
     public class RatingValidator
     {
+        private const int MinimunRate = 1;
+        private const int MaximunRate = 5;
+
         public bool IsValid(int rate)
         {
-            return rate >= 1 && rate <= 5;
+            return rate >= MinimunRate && rate <= MaximunRate;
         }
     }
 }
